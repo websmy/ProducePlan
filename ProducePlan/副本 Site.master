@@ -1,0 +1,87 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="副本 Site.master.cs" Inherits="SiteMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="Form1" runat="server">
+    <div class="page">
+        <div class="header">
+            <div class="title">
+                <h1>
+                    车间生产排程系统
+                </h1>
+            </div>
+            <div class="loginDisplay">
+                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
+                    <AnonymousTemplate>
+                        [ <a href="~/Account/Login.aspx" id="HeadLoginStatus" runat="server">登录</a> ]
+                    </AnonymousTemplate>
+                    <LoggedInTemplate>
+                        欢迎使用 <span class="bold">
+                            <asp:LoginName ID="HeadLoginName" runat="server" />
+                        </span>! [<asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Account/ChangePassword.aspx">更改密码</asp:HyperLink>
+                        <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="注销"
+                            LogoutPageUrl="~/" />
+                        ]
+                    </LoggedInTemplate>
+                </asp:LoginView>
+            </div>
+            <div class="clear hideSkiplink">
+                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false"
+                    IncludeStyleBlock="false" Orientation="Horizontal">
+                    <Items>
+                        <asp:MenuItem NavigateUrl="WorkForms/SO.aspx" Text="销售订单排产" Value="销售订单排产" />
+                        <asp:MenuItem NavigateUrl="WorkForms/Mom.aspx" Text="生产车间排程" Value="生产车间排程" />
+                        <asp:MenuItem NavigateUrl="~/WorkForms/工时录入.aspx" Text="车间计工" Value="车间计工"></asp:MenuItem>
+                        <asp:MenuItem Text="产能分析" Value="产能分析" NavigateUrl="~/WorkForms/cnfx.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="完工日报" Value="完工日报" NavigateUrl="~/WorkForms/wgrb.aspx"></asp:MenuItem>
+                       <asp:MenuItem Text="车间下料" Value="车间下料" NavigateUrl="~/WorkForms/cjxl.aspx"></asp:MenuItem>
+                       <asp:MenuItem Text="应收款查询" Value="应付款查询" 
+                            NavigateUrl="~/WorkForms/billQuery.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="到货物资" 
+                            Value="到货日期预警">
+                            <asp:MenuItem NavigateUrl="~/WorkForms/DateCheck.aspx" Text="采购到货预警" 
+                                Value="采购到货预警"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/WorkForms/DateCheck1.aspx" Text="未入库到货单查询" 
+                                Value="未入库采购单查询"></asp:MenuItem>
+                        </asp:MenuItem>
+                        <asp:MenuItem Text="出门流程" Value="出门流程">
+                            <asp:MenuItem NavigateUrl="~/WorkForms/cmlc.aspx" Text="其它单据" ToolTip="其它单据" 
+                                Value="其它单据"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/WorkForms/cmlc_diaobodan.aspx" Text="调拨单" 
+                                ToolTip="调拨单" Value="调拨单"></asp:MenuItem>
+                        </asp:MenuItem>
+                        <asp:MenuItem Text="工具集合" Value="工具集合">
+                            <asp:MenuItem Text="调拨单生成" Value="调拨单生成" 
+                                NavigateUrl="~/WorkForms/DiaoBoDan.aspx"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/WorkForms/wxjg.aspx" Text="外协加工" Value="外协加工">
+                            </asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/WorkForms/销售业绩查询.aspx" Text="销售业绩查询" 
+                                Value="销售业绩查询"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/WorkForms/价格查询.aspx" Text="价格查询" Value="价格查询">
+                            </asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/WorkForms/Tou_Manage.aspx" Text="价格查询_价格管理" 
+                                Value="价格查询_价格管理"></asp:MenuItem>
+                        </asp:MenuItem>
+                    </Items>
+                </asp:Menu>
+            </div>
+        </div>
+        <div class="main">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="footer">
+    </div>
+    </form>
+</body>
+</html>

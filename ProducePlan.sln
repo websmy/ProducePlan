@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ProducePlan", "ProducePlan\", "{46AE7C96-DB6C-4C69-8DF3-C8EDB782DC3F}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{1EE1CF4F-635D-4D5B-87A7-7168F235C939}|Helper.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/ProducePlan"
+		Debug.AspNetCompiler.PhysicalPath = "ProducePlan\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\ProducePlan\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/ProducePlan"
+		Release.AspNetCompiler.PhysicalPath = "ProducePlan\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\ProducePlan\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "59155"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "..\CreditfanWeb\Creditfan\Helper\Helper.csproj", "{1EE1CF4F-635D-4D5B-87A7-7168F235C939}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{46AE7C96-DB6C-4C69-8DF3-C8EDB782DC3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46AE7C96-DB6C-4C69-8DF3-C8EDB782DC3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46AE7C96-DB6C-4C69-8DF3-C8EDB782DC3F}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{46AE7C96-DB6C-4C69-8DF3-C8EDB782DC3F}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{1EE1CF4F-635D-4D5B-87A7-7168F235C939}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EE1CF4F-635D-4D5B-87A7-7168F235C939}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EE1CF4F-635D-4D5B-87A7-7168F235C939}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EE1CF4F-635D-4D5B-87A7-7168F235C939}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

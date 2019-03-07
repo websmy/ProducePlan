@@ -1,0 +1,1885 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
+    CodeFile="副本 价格查询.aspx.cs" Inherits="WorkForms_价格查询" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
+    <style type="text/css">
+        .style1
+        {
+            width: 100%;
+            border-style: solid;
+            border-width: 1px;
+        }
+        .style2
+        {
+            width: 70px;
+        }
+        .style3
+        {
+            width: 139px;
+        }
+        .style4
+        {
+            width: 100%;
+        }
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" EnableScriptGlobalization="True">
+    </asp:ScriptManager>
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <ajaxToolkit:TabContainer ID="TabContainer1" runat="server" ActiveTabIndex="0" Width="100%">
+                <ajaxToolkit:TabPanel runat="server" HeaderText="船用风机" ID="TabPanel1">
+                    <ContentTemplate>
+                        <ajaxToolkit:TabContainer ID="TabContainer2" runat="server" ActiveTabIndex="0" Width="713px">
+                            <ajaxToolkit:TabPanel ID="TabPanel1_1" runat="server" HeaderText="CBL">
+                                <ContentTemplate>
+                                    <table class="style1" border="1" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td bgcolor="#CCCCCC">
+                                                &#160; 选项
+                                            </td>
+                                            <td align="center" bgcolor="#CCCCCC">
+                                                参数
+                                            </td>
+                                        </tr>
+                                        <tr style="border: 2px groove #808080">
+                                            <td bgcolor="#CCCCCC" style="background-color: #C0C0C0" align="right">
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                <table cellpadding="0" cellspacing="0" class="style1">
+                                                    <tr>
+                                                        <td class="style2">
+                                                            风机型号
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td align="right">
+                                                            总报价
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="总报价" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr style="border: 2px groove #808080">
+                                            <td bgcolor="#CCCCCC" style="background-color: #C0C0C0" align="right">
+                                                电机
+                                            </td>
+                                            <td>
+                                                <table class="style1">
+                                                    <tr>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td>
+                                                            防爆等级
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList4" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList4_SelectedIndexChanged">
+                                                                <asp:ListItem Selected="True"> 无</asp:ListItem>
+                                                                <asp:ListItem>BT4</asp:ListItem>
+                                                                <asp:ListItem>CT4</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            绝缘等级
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList5" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList5_SelectedIndexChanged">
+                                                                <asp:ListItem Selected="True"> F</asp:ListItem>
+                                                                <asp:ListItem>H</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td>
+                                                            安装方式
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList6" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList6_SelectedIndexChanged">
+                                                                <asp:ListItem Selected="True"> 轴流安装</asp:ListItem>
+                                                                <asp:ListItem>V1安装</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td>
+                                                            轴头攻丝
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList7" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList7_SelectedIndexChanged">
+                                                                <asp:ListItem Selected="True"> 外螺丝</asp:ListItem>
+                                                                <asp:ListItem>B3/B35轴头丝</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td>
+                                                            加热带
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList8" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList8_SelectedIndexChanged">
+                                                                <asp:ListItem Selected="True"> 无</asp:ListItem>
+                                                                <asp:ListItem>有</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            轴承
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList9" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList9_SelectedIndexChanged">
+                                                                <asp:ListItem Selected="True"> 国产</asp:ListItem>
+                                                                <asp:ListItem>国外</asp:ListItem>
+                                                                <asp:ListItem>SKF</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td>
+                                                            风扇罩
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList10" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList10_SelectedIndexChanged">
+                                                                <asp:ListItem Selected="True"> 有</asp:ListItem>
+                                                                <asp:ListItem>无</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td>
+                                                            &#160;&#160;
+                                                        </td>
+                                                        <td>
+                                                            &#160;&#160;
+                                                        </td>
+                                                        <td>
+                                                            &#160;&#160;
+                                                        </td>
+                                                        <td>
+                                                            &#160;&#160;
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="8">
+                                                            价格：<asp:Label ID="电机价格" runat="server" Text="Label"></asp:Label><asp:Label ID="电机价格1"
+                                                                runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td bgcolor="#CCCCCC" style="background-color: #C0C0C0" align="right">
+                                                叶轮
+                                            </td>
+                                            <td>
+                                                <table class="style1">
+                                                    <tr>
+                                                        <td>
+                                                            材质
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList12" runat="server" Height="16px" AutoPostBack="True"
+                                                                OnSelectedIndexChanged="DropDownList12_SelectedIndexChanged">
+                                                                <asp:ListItem Selected="True">请选择</asp:ListItem>
+                                                                <asp:ListItem Value="21">铝板</asp:ListItem>
+                                                                <asp:ListItem Value="4">碳钢</asp:ListItem>
+                                                                <asp:ListItem Value="14">不锈钢</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td>
+                                                            重量
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="叶轮重量" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            轴盘
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="轴盘" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            工时
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="叶轮工时" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="8">
+                                                            叶轮价格:<asp:Label ID="叶轮价格" runat="server" Text="Label"></asp:Label><asp:Label ID="叶轮价格1"
+                                                                runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td bgcolor="#CCCCCC" style="background-color: #C0C0C0" align="right">
+                                                机壳
+                                            </td>
+                                            <td>
+                                                <table class="style1">
+                                                    <tr>
+                                                        <td>
+                                                            材质
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList13" runat="server" Height="16px" AutoPostBack="True"
+                                                                OnSelectedIndexChanged="DropDownList13_SelectedIndexChanged">
+                                                                <asp:ListItem Selected="True">请选择</asp:ListItem>
+                                                                <asp:ListItem Value="21">铝板</asp:ListItem>
+                                                                <asp:ListItem Value="4">碳钢</asp:ListItem>
+                                                                <asp:ListItem Value="14">不锈钢</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td>
+                                                            重量
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="机壳重量" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            工时
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="机壳工时" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            &#160;&#160;
+                                                        </td>
+                                                        <td>
+                                                            &#160;&#160;
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="8">
+                                                            机壳价格:<asp:Label ID="机壳价格" runat="server" Text="Label"></asp:Label><asp:Label ID="机壳价格1"
+                                                                runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td bgcolor="#CCCCCC" style="background-color: #C0C0C0" align="right">
+                                                &#160; 进风口
+                                            </td>
+                                            <td>
+                                                <table class="style1">
+                                                    <tr>
+                                                        <td>
+                                                            &#160; 材质
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList14" runat="server" Height="16px" AutoPostBack="True"
+                                                                OnSelectedIndexChanged="DropDownList14_SelectedIndexChanged">
+                                                                <asp:ListItem Selected="True">请选择</asp:ListItem>
+                                                                <asp:ListItem Value="21">铝板</asp:ListItem>
+                                                                <asp:ListItem Value="4">碳钢</asp:ListItem>
+                                                                <asp:ListItem Value="14">不锈钢</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td>
+                                                            重量
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="进风口重量" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            铜板
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="铜板" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            工时
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="进风口工时" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="8">
+                                                            进风口价格:<asp:Label ID="进风口价格" runat="server" Text="Label"></asp:Label><asp:Label ID="进风口价格1"
+                                                                runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td bgcolor="#CCCCCC" style="background-color: #C0C0C0" align="right">
+                                                &#160; 减震支架
+                                            </td>
+                                            <td>
+                                                <table class="style1">
+                                                    <tr>
+                                                        <td class="style3">
+                                                            是否有减震支架
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList18" runat="server" Height="16px" AutoPostBack="True"
+                                                                OnSelectedIndexChanged="DropDownList18_SelectedIndexChanged">
+                                                                <asp:ListItem Value="0" Selected="True">无</asp:ListItem>
+                                                                <asp:ListItem Value="1">有</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td>
+                                                            材质
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList15" runat="server" Height="16px" AutoPostBack="True"
+                                                                OnSelectedIndexChanged="DropDownList15_SelectedIndexChanged">
+                                                                <asp:ListItem Selected="True">请选择</asp:ListItem>
+                                                                <asp:ListItem Value="21">铝板</asp:ListItem>
+                                                                <asp:ListItem Value="4">碳钢</asp:ListItem>
+                                                                <asp:ListItem Value="14">不锈钢</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td>
+                                                            重量
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="减震支架" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            工时
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="减震支架工时" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="8">
+                                                            减震支架价格:<asp:Label ID="减震支架价格" runat="server" Text="Label"></asp:Label><asp:Label
+                                                                ID="减震支架价格1" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td bgcolor="#CCCCCC" style="background-color: #C0C0C0" align="right">
+                                                &#160; 出口法兰
+                                            </td>
+                                            <td>
+                                                <table class="style1">
+                                                    <tr>
+                                                        <td class="style3">
+                                                            是否有出口法兰
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList19" runat="server" Height="16px" AutoPostBack="True"
+                                                                OnSelectedIndexChanged="DropDownList19_SelectedIndexChanged">
+                                                                <asp:ListItem Value="0" Selected="True">无</asp:ListItem>
+                                                                <asp:ListItem Value="1">有</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td>
+                                                            材质
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList16" runat="server" Height="16px" AutoPostBack="True"
+                                                                OnSelectedIndexChanged="DropDownList16_SelectedIndexChanged">
+                                                                <asp:ListItem Selected="True">请选择</asp:ListItem>
+                                                                <asp:ListItem Value="21">铝板</asp:ListItem>
+                                                                <asp:ListItem Value="4">碳钢</asp:ListItem>
+                                                                <asp:ListItem Value="14">不锈钢</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td>
+                                                            重量
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="出口法兰重量" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            工时
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="出口法兰工时" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="8">
+                                                            出口法兰价格:<asp:Label ID="出口法兰价格" runat="server" Text="Label"></asp:Label><asp:Label
+                                                                ID="出口法兰价格1" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td bgcolor="#CCCCCC" style="background-color: #C0C0C0" align="right">
+                                                &#160; 进口法兰
+                                            </td>
+                                            <td>
+                                                <table class="style1">
+                                                    <tr>
+                                                        <td class="style3">
+                                                            是否有进口法兰
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList20" runat="server" Height="16px" AutoPostBack="True"
+                                                                OnSelectedIndexChanged="DropDownList20_SelectedIndexChanged">
+                                                                <asp:ListItem Value="0" Selected="True">无</asp:ListItem>
+                                                                <asp:ListItem Value="1">有</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td>
+                                                            材质
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList17" runat="server" Height="16px" AutoPostBack="True"
+                                                                OnSelectedIndexChanged="DropDownList17_SelectedIndexChanged">
+                                                                <asp:ListItem Selected="True">请选择</asp:ListItem>
+                                                                <asp:ListItem Value="21">铝板</asp:ListItem>
+                                                                <asp:ListItem Value="4">碳钢</asp:ListItem>
+                                                                <asp:ListItem Value="14">不锈钢</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td>
+                                                            重量
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="进口法兰重量" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            工时
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="进口法兰工时" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="8">
+                                                            进口法兰价格:<asp:Label ID="进口法兰价格" runat="server" Text="Label"></asp:Label><asp:Label
+                                                                ID="进口法兰价格1" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td bgcolor="#CCCCCC" style="background-color: #C0C0C0" align="right">
+                                                其它
+                                            </td>
+                                            <td>
+                                                <table class="style1">
+                                                    <tr>
+                                                        <td>
+                                                            标准件
+                                                        </td>
+                                                        <td>
+                                                            <asp:Label ID="标准件核定" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            &#160;
+                                                        </td>
+                                                        <td>
+                                                            &#160;
+                                                        </td>
+                                                        <td>
+                                                            &#160;
+                                                        </td>
+                                                        <td>
+                                                            &#160;
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            是否有减震器
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList21" runat="server" Height="16px" AutoPostBack="True"
+                                                                OnSelectedIndexChanged="DropDownList21_SelectedIndexChanged">
+                                                                <asp:ListItem Selected="True" Value="0">无</asp:ListItem>
+                                                                <asp:ListItem Value="1">有</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                            <asp:Label ID="减震器" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            是否有填料函
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList22" runat="server" Height="16px" AutoPostBack="True"
+                                                                OnSelectedIndexChanged="DropDownList22_SelectedIndexChanged">
+                                                                <asp:ListItem Selected="True" Value="0">无</asp:ListItem>
+                                                                <asp:ListItem Value="1">有</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                            <asp:Label ID="填料函" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            是否有包装
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList23" runat="server" Height="16px" AutoPostBack="True"
+                                                                OnSelectedIndexChanged="DropDownList23_SelectedIndexChanged">
+                                                                <asp:ListItem Selected="True" Value="0">无</asp:ListItem>
+                                                                <asp:ListItem Value="1">有</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                            <asp:Label ID="包装" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            是否有防护网
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList24" runat="server" Height="16px" AutoPostBack="True"
+                                                                OnSelectedIndexChanged="DropDownList24_SelectedIndexChanged">
+                                                                <asp:ListItem Selected="True" Value="0">无</asp:ListItem>
+                                                                <asp:ListItem Value="1">有</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                            <asp:Label ID="防护网" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            是否有软连接
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="DropDownList25" runat="server" Height="16px" AutoPostBack="True"
+                                                                OnSelectedIndexChanged="DropDownList25_SelectedIndexChanged">
+                                                                <asp:ListItem Selected="True" Value="0">无</asp:ListItem>
+                                                                <asp:ListItem Value="1">有</asp:ListItem>
+                                                            </asp:DropDownList>
+                                                            <asp:Label ID="软连接" runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            &#160;&#160;
+                                                        </td>
+                                                        <td>
+                                                            &#160;&#160;
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="6">
+                                                            总价格<asp:Label ID="其它总价格" runat="server" Text="Label"></asp:Label><asp:Label ID="其它总价格1"
+                                                                runat="server" Text="Label"></asp:Label>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td bgcolor="#CCCCCC" style="background-color: #C0C0C0">
+                                                &#160;&#160;
+                                            </td>
+                                            <td>
+                                                &#160;&#160;<asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="计算电机价格和总价格" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    11111111
+                                    <table class="style4">
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                风机型号
+                                            </td>
+                                            <td>
+                                                <asp:DropDownList ID="DropDownList26" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList11_SelectedIndexChanged">
+                                                    <asp:ListItem Selected="True">   请选择     </asp:ListItem>
+                                                    <asp:ListItem>    CLQ-15      </asp:ListItem>
+                                                    <asp:ListItem>CLQ-16          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-17          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-18          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-19          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-20          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-21          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-22          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-23          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-24          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-25          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-27          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-29          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-30          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-32          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-33          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-34          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-36          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-37          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-39          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-40          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-42          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-44          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-46          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-48          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-50          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-52          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-54          </asp:ListItem>
+                                                    <asp:ListItem>CLQ-56          </asp:ListItem>
+                                                    <asp:ListItem> CLQ-58         </asp:ListItem>
+                                                </asp:DropDownList>
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                电机型号
+                                            </td>
+                                            <td>
+                                                <asp:DropDownList ID="DropDownList27" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
+                                                    <asp:ListItem Selected="True">801        </asp:ListItem>
+                                                    <asp:ListItem>802        </asp:ListItem>
+                                                    <asp:ListItem>90S        </asp:ListItem>
+                                                    <asp:ListItem>90L        </asp:ListItem>
+                                                    <asp:ListItem>100L      </asp:ListItem>
+                                                    <asp:ListItem>112M     </asp:ListItem>
+                                                    <asp:ListItem>132S1    </asp:ListItem>
+                                                    <asp:ListItem>132S2    </asp:ListItem>
+                                                    <asp:ListItem>160M1   </asp:ListItem>
+                                                    <asp:ListItem>160M2   </asp:ListItem>
+                                                    <asp:ListItem>160L      </asp:ListItem>
+                                                    <asp:ListItem>180M     </asp:ListItem>
+                                                    <asp:ListItem>200L1     </asp:ListItem>
+                                                    <asp:ListItem>200L2     </asp:ListItem>
+                                                    <asp:ListItem>225M     </asp:ListItem>
+                                                    <asp:ListItem>250M     </asp:ListItem>
+                                                    <asp:ListItem>280S      </asp:ListItem>
+                                                    <asp:ListItem>280M     </asp:ListItem>
+                                                    <asp:ListItem>315S      </asp:ListItem>
+                                                    <asp:ListItem>315M     </asp:ListItem>
+                                                    <asp:ListItem>315L1     </asp:ListItem>
+                                                    <asp:ListItem>315L2     </asp:ListItem>
+                                                    <asp:ListItem>355M1   </asp:ListItem>
+                                                    <asp:ListItem>355M2   </asp:ListItem>
+                                                    <asp:ListItem>355L1     </asp:ListItem>
+                                                    <asp:ListItem>355L2     </asp:ListItem>
+                                                    <asp:ListItem>100L1     </asp:ListItem>
+                                                    <asp:ListItem>100L2     </asp:ListItem>
+                                                    <asp:ListItem>132S      </asp:ListItem>
+                                                    <asp:ListItem>132M     </asp:ListItem>
+                                                    <asp:ListItem>160M     </asp:ListItem>
+                                                    <asp:ListItem>180L      </asp:ListItem>
+                                                    <asp:ListItem>200L      </asp:ListItem>
+                                                    <asp:ListItem>225S      </asp:ListItem>
+                                                    <asp:ListItem>132M1   </asp:ListItem>
+                                                    <asp:ListItem>132M2   </asp:ListItem>
+                                                    <asp:ListItem>355M3   </asp:ListItem>
+                                                </asp:DropDownList>
+                                            </td>
+                                            <td>
+                                                级数
+                                            </td>
+                                            <td>
+                                                <asp:DropDownList ID="DropDownList28" runat="server" AutoPostBack="True" Height="16px"
+                                                    OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged">
+                                                    <asp:ListItem Selected="True">2</asp:ListItem>
+                                                    <asp:ListItem>4</asp:ListItem>
+                                                    <asp:ListItem>6</asp:ListItem>
+                                                    <asp:ListItem>8</asp:ListItem>
+                                                </asp:DropDownList>
+                                            </td>
+                                            <td>
+                                                功率
+                                            </td>
+                                            <td>
+                                                <asp:DropDownList ID="DropDownList29" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList3_SelectedIndexChanged">
+                                                    <asp:ListItem Selected="True"> 0.55</asp:ListItem>
+                                                    <asp:ListItem>0.75 </asp:ListItem>
+                                                    <asp:ListItem>1.1   </asp:ListItem>
+                                                    <asp:ListItem>1.5   </asp:ListItem>
+                                                    <asp:ListItem>2.2   </asp:ListItem>
+                                                    <asp:ListItem>3     </asp:ListItem>
+                                                    <asp:ListItem>4     </asp:ListItem>
+                                                    <asp:ListItem>5.5   </asp:ListItem>
+                                                    <asp:ListItem>7.5   </asp:ListItem>
+                                                    <asp:ListItem>11    </asp:ListItem>
+                                                    <asp:ListItem>15    </asp:ListItem>
+                                                    <asp:ListItem>18.5 </asp:ListItem>
+                                                    <asp:ListItem>22    </asp:ListItem>
+                                                    <asp:ListItem>30    </asp:ListItem>
+                                                    <asp:ListItem>37    </asp:ListItem>
+                                                    <asp:ListItem>45    </asp:ListItem>
+                                                    <asp:ListItem>55    </asp:ListItem>
+                                                    <asp:ListItem>75    </asp:ListItem>
+                                                    <asp:ListItem>90    </asp:ListItem>
+                                                    <asp:ListItem>110  </asp:ListItem>
+                                                    <asp:ListItem>132  </asp:ListItem>
+                                                    <asp:ListItem>160  </asp:ListItem>
+                                                    <asp:ListItem>185  </asp:ListItem>
+                                                    <asp:ListItem>200  </asp:ListItem>
+                                                    <asp:ListItem>220  </asp:ListItem>
+                                                    <asp:ListItem>250  </asp:ListItem>
+                                                    <asp:ListItem>280  </asp:ListItem>
+                                                    <asp:ListItem>315  </asp:ListItem>
+                                                </asp:DropDownList>
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </ContentTemplate>
+                            </ajaxToolkit:TabPanel>
+                            <ajaxToolkit:TabPanel ID="TabPanel1_2" runat="server" HeaderText="CZ">
+                            </ajaxToolkit:TabPanel>
+                        </ajaxToolkit:TabContainer></ContentTemplate>
+                </ajaxToolkit:TabPanel>
+                <ajaxToolkit:TabPanel ID="TabPanel2" runat="server" HeaderText="离心风机">
+                </ajaxToolkit:TabPanel>
+                <ajaxToolkit:TabPanel ID="TabPanel3" runat="server" HeaderText="大叶轮风机">
+                </ajaxToolkit:TabPanel>
+            </ajaxToolkit:TabContainer>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+</asp:Content>

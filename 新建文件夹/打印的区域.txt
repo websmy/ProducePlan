@@ -1,0 +1,23 @@
+<div id="print">
+打印的区域或内容
+</div>
+
+<a href="javascript:void(0)" onclick="printView('print');">打印</a>
+
+实现打印的JS函数:
+//局部打印
+function printView(id)
+{
+    var sprnhtml = $(id).outerHTML;
+    var selfhtml = window.document.body.innerHTML;//获取当前页的html
+
+    window.document.body.innerHTML = sprnhtml;
+    window.print();
+    window.document.body.innerHTML=selfhtml;
+
+}
+如果是要页面打印，那么一句话就搞定了
+function printView(id)
+{
+    window.print();
+}

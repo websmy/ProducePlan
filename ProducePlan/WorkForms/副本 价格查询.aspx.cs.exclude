@@ -1,0 +1,586 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Helper;
+
+public partial class WorkForms_价格查询 : System.Web.UI.Page
+{
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!Page.IsPostBack)
+        {
+            ClearAll();
+
+        }
+    }
+
+    private void ClearAll()
+    {
+        foreach (Control ctrl in TabPanel1_1.Controls)
+        {
+            foreach (Control childc in ctrl.Controls)
+            {
+                switch (childc.GetType().ToString())
+                {
+                    case "System.Web.UI.WebControls.TextBox":
+                        TextBox txt = (TextBox)childc;
+                        break;
+                    case "System.Web.UI.WebControls.Label":
+                        Label lbl = (Label)childc;
+                        lbl.Text = "";
+                        break;
+                    case "System.Web.UI.WebControls.DropDownList":
+                        DropDownList ddl = (DropDownList)childc;
+                        break;
+                }
+            }
+        }
+
+
+    }
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        double dResult = 0;
+        string calLog = "";
+        电机价格.Text = "";
+        电机价格1.Text = "";
+        string 电机型号 = DropDownList1.SelectedItem.Text.Trim();
+        string 级数 = DropDownList2.SelectedItem.Text.Trim();
+        string 功率 = DropDownList3.SelectedItem.Text.Trim();
+        string 防爆等级 = DropDownList4.SelectedItem.Text.Trim();
+        string 绝缘等级 = DropDownList5.SelectedItem.Text.Trim();
+        string 安装方式 = DropDownList6.SelectedItem.Text.Trim();
+        string 轴头攻丝 = DropDownList7.SelectedItem.Text.Trim();
+        string 加热带 = DropDownList8.SelectedItem.Text.Trim();
+        string 轴承 = DropDownList9.SelectedItem.Text.Trim();
+        string 风扇罩 = DropDownList10.SelectedItem.Text.Trim();
+
+        string sql = String.Format("select 中准价,机座号 from 电机 where 电机型号='{0}' and  级数='{1}' and 功率='{2}'", 电机型号, 级数, 功率);
+
+        DataTable dt = SQLHelper1.Query(sql).Tables[0];
+        if (dt.Rows.Count > 1)
+        {
+            ScriptManager.RegisterStartupScript(UpdatePanel1, this.GetType(), "alert", "alert('数据不唯一!')", true);
+
+            //MessageBox.Show(this, "数据不唯一");
+        }
+        if (dt.Rows.Count == 0)
+        {
+            ScriptManager.RegisterStartupScript(UpdatePanel1, this.GetType(), "alert", "alert('没有电机数据!')", true);
+
+            //MessageBox.Show(UpdatePanel1, "没有电机数据");
+        }
+        else if (dt.Rows.Count == 1)
+        {
+            double d中准价 = Convert.ToDouble(dt.Rows[0][0]);
+            int 机座号 = Convert.ToInt32(dt.Rows[0][1]);
+            if ("无".Equals(防爆等级))
+            {
+                dResult = d中准价 * 1.69;
+                calLog = calLog + d中准价 + " * 1.69 ";
+            }
+            else if ("BT4".Equals(防爆等级))
+            {
+                dResult = d中准价 * 1.5 * 2.57;
+                calLog = calLog + d中准价 + " * 1.5 * 2.57 ";
+            }
+            else if ("CT4".Equals(防爆等级))
+            {
+                dResult = d中准价 * 1.5 * 2.57 * 1.7;
+                calLog = calLog + d中准价 + " * 1.5 * 2.57 * 1.7 ";
+            }
+
+            if ("F".Equals(绝缘等级))
+            {
+
+            }
+            else if ("H".Equals(绝缘等级))
+            {
+                dResult = dResult * 1.4;
+                calLog = calLog + " * 1.4 ";
+            }
+
+            if ("轴流安装".Equals(安装方式))
+            {
+
+            }
+            else if ("V1安装".Equals(安装方式))
+            {
+                dResult = dResult * 1.05;
+                calLog = calLog + " * 1.05 ";
+            }
+
+            if ("外螺丝".Equals(轴头攻丝))
+            {
+
+            }
+            else if ("B3/B35轴头丝".Equals(轴头攻丝))
+            {
+                dResult = dResult * 1.02;
+                calLog = calLog + " * 1.02 ";
+            }
+
+
+            if ("国产".Equals(轴承))
+            {
+
+            }
+            else if ("国外".Equals(轴承))
+            {
+                dResult = dResult * 1.05;
+                calLog = calLog + " * 1.05 ";
+            }
+            else if ("SKF".Equals(轴承))
+            {
+                //YHZ系列电机价格+差价
+                dResult = dResult * 1.1;
+                calLog = calLog + " * 1.1 ";
+            }
+
+
+            if ("有".Equals(风扇罩))
+            {
+
+            }
+            else if ("无".Equals(风扇罩))
+            {
+                dResult = dResult * 1.06;
+                calLog = calLog + " * 1.06 ";
+            }
+
+
+            if ("无".Equals(加热带))
+            {
+
+            }
+            else if ("有".Equals(加热带))
+            {
+                if (机座号 <= 132)
+                {
+                    dResult = dResult + 100;
+                    calLog = calLog + " + 100";
+
+                }
+                else if (机座号 >= 160)
+                {
+                    dResult = dResult + 200;
+                    calLog = calLog + " + 200";
+
+                }
+            }
+
+
+            电机价格.Text = dResult.ToString();
+            电机价格1.Text = "=" + calLog;
+
+            double d总报价 = dResult;
+            if (!"".Equals(叶轮价格.Text))
+            {
+                d总报价 = d总报价 + Convert.ToDouble(叶轮价格.Text);
+            }
+            if (!"".Equals(机壳价格.Text))
+            {
+                d总报价 = d总报价 + Convert.ToDouble(机壳价格.Text);
+            }
+            if (!"".Equals(进风口价格.Text))
+            {
+                d总报价 = d总报价 + Convert.ToDouble(进风口价格.Text);
+            }
+            if (!"".Equals(减震支架价格.Text))
+            {
+                d总报价 = d总报价 + Convert.ToDouble(减震支架价格.Text);
+            }
+            if (!"".Equals(出口法兰价格.Text))
+            {
+                d总报价 = d总报价 + Convert.ToDouble(出口法兰价格.Text);
+            }
+            if (!"".Equals(进口法兰价格.Text))
+            {
+                d总报价 = d总报价 + Convert.ToDouble(进口法兰价格.Text);
+            }
+            if (!"".Equals(其它总价格.Text))
+            {
+                d总报价 = d总报价 + Convert.ToDouble(其它总价格.Text);
+            }
+            总报价.Text = d总报价.ToString();
+
+        }
+
+
+    }
+    protected void DropDownList11_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        string strText = DropDownList11.SelectedValue.Trim();
+        if (!"请选择".Equals(strText))
+        {
+            总报价.Text = "";
+            string sql = "select * from [风机报价基本表] where 风机型号='" + strText + "'  ";
+            DataTable dt = SQLHelper1.Query(sql).Tables[0];
+            for (int i = 3; i < dt.Columns.Count; i++)
+            {
+                foreach (Control ctrl in TabPanel1_1.Controls)
+                {
+                    foreach (Control childc in ctrl.Controls)
+                    {
+
+                        if ("System.Web.UI.WebControls.Label".Equals(childc.GetType().ToString()))
+                        {
+                            if (childc.ID.Equals(dt.Columns[i].ColumnName))
+                            {
+                                Label lbl = (Label)childc;
+                                lbl.Text = dt.Rows[0][i].ToString();
+                            }
+                        }
+                    }
+                }
+            }
+
+            计算叶轮价格();
+            计算机壳价格();
+            计算进风口价格();
+            计算减震支架价格();
+            计算出口法兰价格();
+            计算进口法兰价格();
+            计算其它总价格();
+        }
+        else
+        {
+            ClearAll();
+        }
+    }
+    protected void DropDownList12_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        计算叶轮价格();
+    }
+
+    private void 计算叶轮价格()
+    {
+        double dResult = 0;
+        string calcLog = "";
+        叶轮价格.Text = "";
+        叶轮价格1.Text = "";
+        //string strText = DropDownList12.SelectedValue.Trim();
+        string strVal = DropDownList12.SelectedValue.Trim();
+        if (!"请选择".Equals(strVal) && !"".Equals(叶轮重量.Text))
+        {
+            //dResult = Convert.ToDouble(strVal) + Convert.ToDouble(叶轮重量.Text) + Convert.ToDouble(轴盘.Text) + Convert.ToDouble(叶轮工时.Text);
+            dResult = Convert.ToDouble(叶轮重量.Text) * Convert.ToDouble(strVal) + Convert.ToDouble(轴盘.Text) +
+                      53 * Convert.ToDouble(叶轮工时.Text);
+            calcLog = calcLog  + 叶轮重量.Text + "*" + strVal + "+"+轴盘.Text + "+53*" + 叶轮工时.Text;
+            叶轮价格.Text = dResult.ToString();
+            叶轮价格1.Text = "=" + calcLog;
+
+        }
+
+    }
+    protected void DropDownList13_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        计算机壳价格();
+    }
+
+    private void 计算机壳价格()
+    {
+        double dResult = 0;
+        string calcLog = "";
+        机壳价格.Text = "";
+        机壳价格1.Text = "";
+        //string strText = DropDownList13.SelectedValue.Trim();
+        string strVal = DropDownList13.SelectedValue.Trim();
+        if (!"请选择".Equals(strVal) && !"".Equals(机壳重量.Text))
+        {
+            dResult = Convert.ToDouble(机壳重量.Text) * Convert.ToDouble(strVal) + 53 * Convert.ToDouble(机壳工时.Text);
+            calcLog = calcLog + 机壳重量.Text + "*" + strVal + "+53*" + 机壳工时.Text;
+
+            机壳价格.Text = dResult.ToString();
+            机壳价格1.Text = "=" + calcLog;
+
+        }
+    }
+
+    protected void DropDownList14_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        计算进风口价格();
+    }
+    private void 计算进风口价格()
+    {
+        double dResult = 0;
+        string calcLog = "";
+        进风口价格.Text = "";
+        进风口价格1.Text = "";
+        string strVal = DropDownList14.SelectedValue.Trim();
+        if (!"请选择".Equals(strVal) && !"".Equals(进风口重量.Text))
+        {
+            //dResult = Convert.ToDouble(进风口重量.Text) * Convert.ToDouble(strVal) + 53 * Convert.ToDouble(叶轮工时.Text);
+            //calcLog = calcLog + 进风口重量.Text + "*" + strVal + "+53*" + 叶轮工时.Text;
+
+            dResult = Convert.ToDouble(进风口重量.Text) * Convert.ToDouble(strVal) + Convert.ToDouble(铜板.Text) +
+                  53 * Convert.ToDouble(进风口工时.Text);
+            calcLog = calcLog + 进风口重量.Text + "*" + strVal + "+" + 铜板.Text + "+53*" + 进风口工时.Text;
+
+            进风口价格.Text = dResult.ToString();
+            进风口价格1.Text = "=" + calcLog;
+        }
+    }
+    protected void DropDownList18_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        计算减震支架价格();
+    }
+    protected void DropDownList15_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        计算减震支架价格();
+    }
+    private void 计算减震支架价格()
+    {
+        double dResult = 0;
+        string calcLog = "";
+        减震支架价格.Text = "";
+        减震支架价格1.Text = "";
+
+        string strText18 = DropDownList18.SelectedValue.Trim();
+        //string strVal18 = DropDownList18.SelectedValue.Trim();
+
+        string strText15 = DropDownList15.SelectedValue.Trim();
+        //string strVal15 = DropDownList15.SelectedValue.Trim();
+        if (!"0".Equals(strText18) && !"请选择".Equals(strText15) && !"".Equals(减震支架工时.Text))
+        //if (!"有".Equals(strText18) && !"请选择".Equals(strText15))
+        {
+            //dResult = Convert.ToDouble(strText15) + Convert.ToDouble(减震支架.Text) + Convert.ToDouble(减震支架工时.Text);
+            //calcLog = calcLog + strText15 + "+" + 减震支架.Text + "+" + 减震支架工时.Text;
+
+            dResult = Convert.ToDouble(减震支架.Text) * Convert.ToDouble(strText15) + 53 * Convert.ToDouble(减震支架工时.Text);
+            calcLog = calcLog + 减震支架.Text + "*" + strText15 + "+53*" + 减震支架工时.Text;
+
+            减震支架价格.Text = dResult.ToString();
+            减震支架价格1.Text = "=" + calcLog;
+        }
+    }
+
+
+    protected void DropDownList19_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        计算出口法兰价格();
+    }
+    protected void DropDownList16_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        计算出口法兰价格();
+    }
+    private void 计算出口法兰价格()
+    {
+        double dResult = 0;
+        string calcLog = "";
+        出口法兰价格.Text = "";
+        出口法兰价格1.Text = "";
+
+        string strText18 = DropDownList19.SelectedValue.Trim();
+        //string strVal18 = DropDownList18.SelectedValue.Trim();
+
+        string strText15 = DropDownList16.SelectedValue.Trim();
+        //string strVal15 = DropDownList15.SelectedValue.Trim();
+        if (!"0".Equals(strText18) && !"请选择".Equals(strText15) && !"".Equals(出口法兰工时.Text))
+        //if (!"有".Equals(strText18) && !"请选择".Equals(strText15))
+        {
+            //dResult = Convert.ToDouble(strText15) + Convert.ToDouble(出口法兰重量.Text) + Convert.ToDouble(出口法兰工时.Text);
+            //calcLog = calcLog + strText15 + "+" + 出口法兰重量.Text + "+" + 出口法兰工时.Text;
+
+            dResult = Convert.ToDouble(出口法兰重量.Text) * Convert.ToDouble(strText15) + 53 * Convert.ToDouble(出口法兰工时.Text);
+            calcLog = calcLog + 出口法兰重量.Text + "*" + strText15 + "+53*" + 出口法兰工时.Text;
+
+            出口法兰价格.Text = dResult.ToString();
+            出口法兰价格1.Text = "=" + calcLog;
+        }
+    }
+
+    protected void DropDownList20_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        计算进口法兰价格();
+    }
+    protected void DropDownList17_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        计算进口法兰价格();
+    }
+    private void 计算进口法兰价格()
+    {
+        double dResult = 0;
+        string calcLog = "";
+        进口法兰价格.Text = "";
+        进口法兰价格1.Text = "";
+
+        string strText18 = DropDownList20.SelectedValue.Trim();
+        //string strVal18 = DropDownList18.SelectedValue.Trim();
+
+        string strText15 = DropDownList17.SelectedValue.Trim();
+        //string strVal15 = DropDownList15.SelectedValue.Trim();
+        if (!"0".Equals(strText18) && !"请选择".Equals(strText15) && !"".Equals(进口法兰工时.Text))
+        //if (!"有".Equals(strText18) && !"请选择".Equals(strText15))
+        {
+            //dResult = Convert.ToDouble(strText15) + Convert.ToDouble(进口法兰重量.Text) + Convert.ToDouble(进口法兰工时.Text);
+
+            //calcLog = calcLog + strText15 + "+" + 进口法兰重量.Text + "+" + 进口法兰工时.Text;
+
+            dResult = Convert.ToDouble(进口法兰重量.Text) * Convert.ToDouble(strText15) + 53 * Convert.ToDouble(进口法兰工时.Text);
+            calcLog = calcLog + 进口法兰重量.Text + "*" + strText15 + "+53*" + 进口法兰工时.Text;
+
+            进口法兰价格.Text = dResult.ToString();
+            进口法兰价格1.Text = "=" + calcLog;
+        }
+    }
+
+
+    protected void DropDownList21_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        计算其它总价格();
+    }
+
+    private void 计算其它总价格()
+    {
+        double dResult = 0;
+        string calcLog = "";
+        其它总价格.Text = "";
+        其它总价格1.Text = "";
+        if (!"".Equals(标准件核定.Text))
+        {
+            dResult = dResult + Convert.ToDouble(标准件核定.Text);
+            calcLog = calcLog + 标准件核定.Text;
+
+            string strText21 = DropDownList21.SelectedValue.Trim();
+            string strText22 = DropDownList22.SelectedValue.Trim();
+            string strText23 = DropDownList23.SelectedValue.Trim();
+            string strText24 = DropDownList24.SelectedValue.Trim();
+            string strText25 = DropDownList25.SelectedValue.Trim();
+            if (!"0".Equals(strText21))
+            {
+                dResult = dResult + Convert.ToDouble(减震器.Text);
+                if ("".Equals(calcLog))
+                {
+                    calcLog = calcLog + 减震器.Text;
+                }
+                else
+                {
+                    calcLog = calcLog + "+" + 减震器.Text;
+                }
+            }
+
+            if (!"0".Equals(strText22))
+            {
+                dResult = dResult + Convert.ToDouble(填料函.Text);
+                if ("".Equals(calcLog))
+                {
+                    calcLog = calcLog + 填料函.Text;
+                }
+                else
+                {
+                    calcLog = calcLog + "+" + 填料函.Text;
+                }
+            }
+            if (!"0".Equals(strText23))
+            {
+                dResult = dResult + Convert.ToDouble(包装.Text);
+                if ("".Equals(calcLog))
+                {
+                    calcLog = calcLog + 包装.Text;
+                }
+                else
+                {
+                    calcLog = calcLog + "+" + 包装.Text;
+                }
+            }
+            if (!"0".Equals(strText24))
+            {
+                dResult = dResult + Convert.ToDouble(防护网.Text);
+                if ("".Equals(calcLog))
+                {
+                    calcLog = calcLog + 防护网.Text;
+                }
+                else
+                {
+                    calcLog = calcLog + "+" + 防护网.Text;
+                }
+            }
+            if (!"0".Equals(strText25))
+            {
+                dResult = dResult + Convert.ToDouble(软连接.Text);
+                if ("".Equals(calcLog))
+                {
+                    calcLog = calcLog + 软连接.Text;
+                }
+                else
+                {
+                    calcLog = calcLog + "+" + 软连接.Text;
+                }
+            }
+
+            其它总价格.Text = dResult.ToString();
+            其它总价格1.Text = "=" + calcLog;
+        }
+
+
+    }
+
+    protected void DropDownList22_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        计算其它总价格();
+    }
+    protected void DropDownList23_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        计算其它总价格();
+    }
+    protected void DropDownList24_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        计算其它总价格();
+    }
+    protected void DropDownList25_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        计算其它总价格();
+    }
+    protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        清空电机价格();
+    }
+
+    private void 清空电机价格()
+    {
+        电机价格.Text = "";
+        电机价格1.Text = "";
+    }
+    protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        清空电机价格();
+    }
+    protected void DropDownList3_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        清空电机价格();
+    }
+    protected void DropDownList4_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        清空电机价格();
+    }
+    protected void DropDownList5_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        清空电机价格();
+    }
+    protected void DropDownList6_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        清空电机价格();
+    }
+    protected void DropDownList7_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        清空电机价格();
+    }
+    protected void DropDownList8_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        清空电机价格();
+    }
+    protected void DropDownList9_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        清空电机价格();
+    }
+    protected void DropDownList10_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        清空电机价格();
+    }
+}
