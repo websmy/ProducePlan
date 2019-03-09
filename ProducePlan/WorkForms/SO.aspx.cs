@@ -8,7 +8,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Helper;
-
+using System.Text.RegularExpressions;
+using System.Text;
 
 public partial class WorkForms_SO : System.Web.UI.Page
 {
@@ -74,7 +75,7 @@ public partial class WorkForms_SO : System.Web.UI.Page
         DropDownList1.DataValueField = "cPersonName";
         DropDownList1.DataBind();
 
-        dataView.Sort = "cMaker ";       
+        dataView.Sort = "cMaker ";
         DataTable dataTableDistinct2 = dataView.ToTable(true, "cMaker"); //注      
         //DataTable dtTemp = dataTableDistinct2.Copy();
         DataRow dr2 = dataTableDistinct2.NewRow();
@@ -196,7 +197,7 @@ public partial class WorkForms_SO : System.Web.UI.Page
 
     protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        GridViewRow row = (GridViewRow) (((Button) e.CommandSource).NamingContainer);
+        GridViewRow row = (GridViewRow)(((Button)e.CommandSource).NamingContainer);
 
         switch (e.CommandName)
         {
@@ -212,7 +213,7 @@ public partial class WorkForms_SO : System.Web.UI.Page
                 string iRowNo = row.Cells[1].Text;
                 string cInvCode = row.Cells[4].Text;
 
-                string iInvAdvance = ((HiddenField) row.FindControl("iInvAdvance")).Value;
+                string iInvAdvance = ((HiddenField)row.FindControl("iInvAdvance")).Value;
                 //if ("".Equals(strText))
                 //{
                 //    sql = "update SO_SODetails set cdefine37 = null where AutoID='" + AutoID + "'";
@@ -315,24 +316,24 @@ public partial class WorkForms_SO : System.Web.UI.Page
     protected void Bind(bool isFirstPage)
     {
 
-       // string sql =
-       //    "select  '' as xiancun,SO_SODetails.iNatSum,SO_SODetails.iSOsID,SO_SODetails.iFHQuantity,SO_SODetails.iKPQuantity,SO_SOMain.[cMaker],Person.[cPersonName],inventory.iInvAdvance,SO_SODetails.iRowNo,SO_SODetails.AutoID,SO_SOMain.cSOCode,SO_SOMain.cCusName,SO_SOMain.dDate,SO_SODetails.cInvCode,SO_SODetails.cInvName,SO_SODetails.iQuantity,SO_SODetails.dPreMoDate,SO_SODetails.cSCloser,SO_SODetails.iQuantity,SO_SODetails.cdefine26,SO_SODetails.cdefine37 " 
+        // string sql =
+        //    "select  '' as xiancun,SO_SODetails.iNatSum,SO_SODetails.iSOsID,SO_SODetails.iFHQuantity,SO_SODetails.iKPQuantity,SO_SOMain.[cMaker],Person.[cPersonName],inventory.iInvAdvance,SO_SODetails.iRowNo,SO_SODetails.AutoID,SO_SOMain.cSOCode,SO_SOMain.cCusName,SO_SOMain.dDate,SO_SODetails.cInvCode,SO_SODetails.cInvName,SO_SODetails.iQuantity,SO_SODetails.dPreMoDate,SO_SODetails.cSCloser,SO_SODetails.iQuantity,SO_SODetails.cdefine26,SO_SODetails.cdefine37 " 
 
-       //+" FROM mom_orderdetail a LEFT JOIN mom_order ON a.moid = mom_order.moid"
-       // + " LEFT JOIN mom_morder ON a.modid = mom_morder.modid"
-       // + " LEFT JOIN inventory ON a.InvCode = inventory.cInvCode"
-       // + " LEFT JOIN [Department] ON a.MDeptCode = [Department].[cDepCode]"
-       // + " LEFT join SO_SODetails on a.sodid=SO_SODetails.iSOsID "
-       // + " LEFT join SO_SOMain on SO_SODetails.cSOCode=SO_SOMain.cSOCode "
-       //  + " left join [Person]  on Person.[cPersonCode]=[SO_SOMain].[cPersonCode] "
-       // //+ " LEFT JOIN SO_SODetails ON a.socode = SO_SODetails.csocode and a.invcode=SO_SODetails.cinvcode"
+        //+" FROM mom_orderdetail a LEFT JOIN mom_order ON a.moid = mom_order.moid"
+        // + " LEFT JOIN mom_morder ON a.modid = mom_morder.modid"
+        // + " LEFT JOIN inventory ON a.InvCode = inventory.cInvCode"
+        // + " LEFT JOIN [Department] ON a.MDeptCode = [Department].[cDepCode]"
+        // + " LEFT join SO_SODetails on a.sodid=SO_SODetails.iSOsID "
+        // + " LEFT join SO_SOMain on SO_SODetails.cSOCode=SO_SOMain.cSOCode "
+        //  + " left join [Person]  on Person.[cPersonCode]=[SO_SOMain].[cPersonCode] "
+        // //+ " LEFT JOIN SO_SODetails ON a.socode = SO_SODetails.csocode and a.invcode=SO_SODetails.cinvcode"
 
-       // + " WHERE SO_SODetails.cSCloser is null  and a.Qty <> a.QualifiedInQty " ;
+        // + " WHERE SO_SODetails.cSCloser is null  and a.Qty <> a.QualifiedInQty " ;
 
-       // //+" WHERE a.status <> 4 and a.Qty <> a.QualifiedInQty and a.Status = 3 ";
+        // //+" WHERE a.status <> 4 and a.Qty <> a.QualifiedInQty and a.Status = 3 ";
 
-       // //sql = "SELECT TOP " + pageSize + " * FROM aViewName WHERE (modid > (SELECT MAX(modid) FROM (SELECT TOP (" + pageSize * (curpage - 1) + ") modid FROM aViewName  ORDER BY modid) AS T)) ";                                                   
-       // sql += " and 1=1 ";
+        // //sql = "SELECT TOP " + pageSize + " * FROM aViewName WHERE (modid > (SELECT MAX(modid) FROM (SELECT TOP (" + pageSize * (curpage - 1) + ") modid FROM aViewName  ORDER BY modid) AS T)) ";                                                   
+        // sql += " and 1=1 ";
 
 
         //string sql =
@@ -348,7 +349,7 @@ public partial class WorkForms_SO : System.Web.UI.Page
             "left join [Department]  on SO_SOMain.cDepCode=[Department].cDepCode " +
             "left join [Person]  on Person.[cPersonCode]=[SO_SOMain].[cPersonCode] " +
 
-             //"  inner join mom_orderdetail on mom_orderdetail.sodid=SO_SODetails.iSOsID  and mom_orderdetail.InvCode= SO_SODetails.cInvCode " +
+            //"  inner join mom_orderdetail on mom_orderdetail.sodid=SO_SODetails.iSOsID  and mom_orderdetail.InvCode= SO_SODetails.cInvCode " +
 
             "where  (select count(*) from  mom_orderdetail where mom_orderdetail.sodid=SO_SODetails.iSOsID  and mom_orderdetail.InvCode= SO_SODetails.cInvCode and SO_SODetails.iQuantity=mom_orderdetail.QualifiedInQty )=0  and SO_SODetails.cSCloser is null and SO_SODetails.iQuantity > ISNULL(SO_SODetails.iFHQuantity,0)  " +
             " ";
@@ -373,6 +374,17 @@ public partial class WorkForms_SO : System.Web.UI.Page
             sql += " and SO_SOMain.cSOCode='" + TextBox3.Text.Trim() + "'";
         }
 
+        if (!"".Equals(txtStartDate.Text))
+        {
+            sql += "  and SO_SODetails.cdefine37 >= '" + txtStartDate.Text + "' ";
+        }
+
+        if (!"".Equals(txtEndDate.Text))
+        {
+            sql += "  and SO_SODetails.cdefine37 <= '" + txtEndDate.Text + "' ";
+        }
+
+
         if (!"全部".Equals(DropDownList1.SelectedValue))
         {
 
@@ -385,7 +397,7 @@ public partial class WorkForms_SO : System.Web.UI.Page
                 sql += " and Person.[cPersonName] is null";
             }
 
-          
+
         }
 
         if (!"全部".Equals(DropDownList2.SelectedValue))
@@ -428,7 +440,7 @@ public partial class WorkForms_SO : System.Web.UI.Page
         //        }
         //    }
 
-            
+
         //        if (!"全部".Equals(DropDownList5.SelectedValue))
         //        {
         //            try
@@ -443,11 +455,11 @@ public partial class WorkForms_SO : System.Web.UI.Page
         //                ds.Tables[0].Rows[i].Delete();
         //                //throw;
         //            }
-                    
+
         //        } 
         //}
 
-       
+
 
 
 
@@ -547,7 +559,7 @@ public partial class WorkForms_SO : System.Web.UI.Page
     {
         if (e.Row.RowIndex > -1)
         {
-            
+
             Label Label1 = e.Row.FindControl("Label1") as Label;
             HiddenField iSOsID = e.Row.FindControl("iSOsID") as HiddenField;
             HiddenField cInvCode = e.Row.FindControl("cInvCode") as HiddenField;
@@ -555,11 +567,11 @@ public partial class WorkForms_SO : System.Web.UI.Page
 
             HiddenField cSOCode = e.Row.FindControl("cSOCode") as HiddenField;
 
-            if (SQLHelper1.Query(" select * from SetColor where cSOCode='"+cSOCode.Value+"' ").Tables[0].Rows.Count>0)
+            if (SQLHelper1.Query(" select * from SetColor where cSOCode='" + cSOCode.Value + "' ").Tables[0].Rows.Count > 0)
             {
                 e.Row.BackColor = Color.DodgerBlue;
             }
-            
+
 
             HyperLink1.Attributes.Add("onclick",
                                           "openwin('Mom2.aspx','Mom2','" + cSOCode.Value + "','650','600','" +
@@ -575,7 +587,7 @@ public partial class WorkForms_SO : System.Web.UI.Page
 
             if ("0000015613".Equals(cSOCode.Value))
             {
-                
+
             }
             if (dt1.Rows.Count == 1)
             {
@@ -623,7 +635,7 @@ public partial class WorkForms_SO : System.Web.UI.Page
             "left join [Department]  on SO_SOMain.cDepCode=[Department].cDepCode " +
             "left join [Person]  on Person.[cPersonCode]=[SO_SOMain].[cPersonCode] " +
 
-             //"  inner join mom_orderdetail on mom_orderdetail.sodid=SO_SODetails.iSOsID  and mom_orderdetail.InvCode= SO_SODetails.cInvCode " +
+            //"  inner join mom_orderdetail on mom_orderdetail.sodid=SO_SODetails.iSOsID  and mom_orderdetail.InvCode= SO_SODetails.cInvCode " +
 
             "where  (select count(*) from  mom_orderdetail where mom_orderdetail.sodid=SO_SODetails.iSOsID  and mom_orderdetail.InvCode= SO_SODetails.cInvCode and SO_SODetails.iQuantity=mom_orderdetail.QualifiedInQty )=0  and SO_SODetails.cSCloser is null and SO_SODetails.iQuantity > ISNULL(SO_SODetails.iFHQuantity,0)  " +
             " ";
@@ -647,6 +659,18 @@ public partial class WorkForms_SO : System.Web.UI.Page
         {
             sql += " and SO_SOMain.cSOCode='" + TextBox3.Text.Trim() + "'";
         }
+
+
+        if (!"".Equals(txtStartDate.Text))
+        {
+            sql += "  and SO_SODetails.cdefine37 >= '" + txtStartDate.Text + "' ";
+        }
+
+        if (!"".Equals(txtEndDate.Text))
+        {
+            sql += "  and SO_SODetails.cdefine37 <= '" + txtEndDate.Text + "' ";
+        }
+
 
         if (!"全部".Equals(DropDownList1.SelectedValue))
         {
@@ -743,7 +767,7 @@ public partial class WorkForms_SO : System.Web.UI.Page
         {
             for (int j = 0; j < colnum; j++)
             {
-                if (j == 14)
+                if (j == 15)
                 {
 
                     string result = "";
@@ -756,7 +780,7 @@ public partial class WorkForms_SO : System.Web.UI.Page
                     DataSet ds1 = SQLHelper.Query(sql);
                     DataTable dt1 = ds1.Tables[0];
 
-                   
+
                     if (dt1.Rows.Count == 1)
                     {
                         result = Convert.ToInt32(dt1.Rows[0][0]).ToString();
@@ -787,10 +811,10 @@ public partial class WorkForms_SO : System.Web.UI.Page
                 //    cells.Add((i + 2), (j + 1), ((Label)GridView1.Rows[i].FindControl("labelsection4")).Text.Trim());
                 //}
 
-                //else if (j == 10)
-                //{
-                //    cells.Add((i + 2), (j + 1), ((Label)GridView1.Rows[i].FindControl("labelsection5")).Text.Trim());
-                //}
+                else if (j == 11)
+                {
+                    cells.Add((i + 2), (j + 1), ((TextBox)GridView1.Rows[i].FindControl("txtcDefine37")).Text.Trim());
+                }
                 //else if (j == 11)
                 //{
                 //    cells.Add((i + 2), (j + 1), ((Label)GridView1.Rows[i].FindControl("labelsection6")).Text.Trim());
@@ -826,7 +850,71 @@ public partial class WorkForms_SO : System.Web.UI.Page
         }
         //doc.Save(@"D:\");  //保存到指定位置
         doc.Send();//把写好的excel文件输出到客户端
+
     }
 
 
+
+    protected void Button112_Click(object sender, EventArgs e)
+    {
+        //string sql = "";
+        Session["strConnected"] = "";
+        bool ischecked = false;
+        List<String> lst_cSOCode = new List<String>();
+        for (int i = 0; i < GridView1.Rows.Count; i++)
+        {
+            CheckBox cb = GridView1.Rows[i].FindControl("cbItem") as CheckBox;
+            if (cb.Checked)
+            {
+
+                HiddenField cSOCode = GridView1.Rows[i].FindControl("cSOCode") as HiddenField;
+
+                lst_cSOCode.Add(cSOCode.Value);
+                ischecked = true;
+            }
+        }
+
+        if (!ischecked)
+        {
+            ScriptManager.RegisterStartupScript(UpdatePanel1, this.GetType(), "openwin", "alert('没有选择任何项!')", true);
+            return;
+        }
+
+        string strConnected = string.Join("','", lst_cSOCode.ToArray());
+        Session["strConnected"] = strConnected;
+
+        ScriptManager.RegisterStartupScript(UpdatePanel1, this.GetType(), "alert", "openwin('WorkFormsNew.aspx','WorkFormsNew','" + "" + "','650','600','" +
+                              "" + "','" + "" + "','" +
+                              "" + "','" +
+                              "" + "','" + "" + "','" + "" + "' )", true);
+        //       string strSup = @"
+        //SELECT COUNT(*)
+        // FROM DAT_HOSP_PURCHASE_GOODS_COM  C 
+        //where    C.FLAG<>'P8'  AND C.HOSP_GUID =:HOSP_GUID
+        //AND C.hosp_gd_guid IN ('" + lstGUID + "')  AND exists(SELECT 'X'  FROM  DOC_HOSP_GOODS G  WHERE G.GDNAME = C.GDNAME  AND    G.FLAG = 'Y'   AND HOSP_GUID =:HOSP_GUID   )  ";
+
+        ////string tmp = "";
+        //List<String> SQLStringList = new List<string>();
+        //foreach (string VARIABLE in lst_modid)
+        //{
+        //    sql = " insert into xialiao_flag([MoDId],flag   ) values('" + VARIABLE + "',3)";
+        //    SQLStringList.Add(sql);
+        //    //tmp += VARIABLE + ",";
+        //}
+        ////if (tmp.EndsWith(","))
+        ////{
+        ////    tmp = tmp.Substring(0, tmp.Length - 1);
+        ////}
+
+        //if (SQLHelper1.ExecuteSqlTran(SQLStringList) == 0)
+        //{
+        //    ScriptManager.RegisterStartupScript(UpdatePanel1, this.GetType(), "alert", "alert('更新数据失败!请联系管理员！')", true);
+        //    return;
+        //}
+        //else
+        //{
+        //    //Page.ClientScript.RegisterStartupScript(typeof(Page), "", "<script>openwin('cjxl_Print.aspx','cjxl_Print','" + tmp + "');__doPostBack('ctl00$MainContent$btnFilter',''); </script>");
+        //    //btnFilter.
+        //}
+    }
 }
