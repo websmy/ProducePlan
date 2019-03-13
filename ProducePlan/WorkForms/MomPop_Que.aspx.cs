@@ -53,7 +53,7 @@ public partial class WorkForms_MomPop : System.Web.UI.Page
             dt.Rows[i]["xiancun"] =
                 SQLHelper.Query(
                     "select Isnull(sum(CurrentStock.iQuantity) - sum(CurrentStock.fOutQuantity),0) from CurrentStock where CurrentStock.cInvCode ='" +
-                    dt.Rows[i]["invcode"].ToString() + "'").Tables[0].Rows[0][0].ToString();
+                    dt.Rows[i]["invcode"].ToString() + "' and CurrentStock.cWhCode not in('08','09','15','24','26','31','34','42') ").Tables[0].Rows[0][0].ToString();
         }
         DataRow[] drArr = dt.Select("(qty - issqty)>xiancun");
         DataTable dtNew = dt.Clone();

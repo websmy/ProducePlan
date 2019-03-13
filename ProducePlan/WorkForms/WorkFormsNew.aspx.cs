@@ -54,7 +54,7 @@ public partial class WorkFormsNew : System.Web.UI.Page
     {
         _dsBind = new DataSet();
 		
-		        string sqlString = "SELECT s1.*,s2.*,s3.invcode s3code ,s3.cinvname s3name ,s3.qty s3qyt" +
+		        string sqlString = "SELECT s1.*,s2.*,s3.invcode s3code ,s3.cinvname s3name ,s3.qty s3yaoling,s3.xiancun  s3xiancun" +
 "    FROM" +
 "    (SELECT '' AS xiancun,SO_SODetails.iNatSum,SO_SODetails.iSOsID,SO_SODetails.iFHQuantity,SO_SODetails.iKPQuantity,SO_SOMain.[cMaker],Person.[cPersonName],inventory.iInvAdvance,SO_SODetails.iRowNo,SO_SODetails.AutoID,SO_SOMain.cSOCode,SO_SOMain.cCusName,SO_SOMain.dDate,SO_SODetails.cInvCode,SO_SODetails.cInvName,SO_SODetails.iQuantity,SO_SODetails.dPreMoDate,SO_SODetails.cSCloser,SO_SODetails.cdefine26,SO_SODetails.cdefine37" +
 "    FROM [SO_SODetails]" +
@@ -114,7 +114,7 @@ public partial class WorkFormsNew : System.Web.UI.Page
 "            (SELECT Isnull(sum(CurrentStock.iQuantity) - sum(CurrentStock.fOutQuantity)," +
 "         0)" +
 "            FROM CurrentStock" +
-"            WHERE CurrentStock.cInvCode =mom_moallocate.invcode) AS xiancun, mom_moallocate.qty-mom_moallocate.issqty yaoling" +
+"            WHERE CurrentStock.cInvCode =mom_moallocate.invcode and CurrentStock.cWhCode not in('08','09','15','24','26','31','34','42')) AS xiancun, mom_moallocate.qty-mom_moallocate.issqty yaoling" +
 "            FROM mom_moallocate" +
 "            LEFT JOIN mom_orderdetail" +
 "                ON mom_moallocate.modid = mom_orderdetail.modid" +
@@ -126,7 +126,7 @@ public partial class WorkFormsNew : System.Web.UI.Page
 "                (SELECT Isnull(sum(CurrentStock.iQuantity) - sum(CurrentStock.fOutQuantity)," +
 "         0)" +
 "                FROM CurrentStock" +
-"                WHERE CurrentStock.cInvCode =mom_moallocate.invcode) ) s3" +
+"                WHERE CurrentStock.cInvCode =mom_moallocate.invcode and CurrentStock.cWhCode not in('08','09','15','24','26','31','34','42')) ) s3" +
 "            WHERE s1.cSOCode=s2.SoCode" +
 "                AND s2.modid=s3.MoDId" +
 "            " +

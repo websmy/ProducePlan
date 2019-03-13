@@ -62,8 +62,8 @@ public partial class WorkForms_cjxl : System.Web.UI.Page
             + "left join opendatasource ('SQLOLEDB','" + GetConnectionString.iGetConn1 + "')." + vDataBaseName + ".dbo.[xialiao_flag] as xl on  a.MoDId= xl.MoDId  "
 
             //+ " WHERE   Department.[cDepName] in (" + str + ")  and [cinvdefine4] in ('一车间成型班','一车间附件班','一车间网罩班','一车间小叶轮班','一车间焊接班')";
-        +" WHERE   Department.[cDepName] in (" + str + ")  ";
-        sql += " and 1=1 ";
+        +" WHERE     ";
+        sql += "  1=1 ";
 
         if (!"全部".Equals(DropDownList3.SelectedValue))
         {
@@ -264,8 +264,9 @@ public partial class WorkForms_cjxl : System.Web.UI.Page
 
             "left join opendatasource ('SQLOLEDB','" + GetConnectionString.iGetConn1 + "')." + vDataBaseName + ".dbo.[xialiao_flag] as xl on  mom_orderdetail.MoDId= xl.MoDId  " +
 
-            "where  mom_orderdetail.Status = 3 and Department.[cDepName] in (" +
-            str + ") and [cinvdefine4] in ('一车间成型班','一车间附件班','一车间网罩班','一车间小叶轮班','一车间焊接班')";
+                        //"where  mom_orderdetail.Status = 3 and Department.[cDepName] in (" +
+                        //str + ") and [cinvdefine4] in ('一车间成型班','一车间附件班','一车间网罩班','一车间小叶轮班','一车间焊接班')";
+            " where  mom_orderdetail.Status = 3 ";
 
         //string sql = "select * from aViewName where 1=1 ";
         DataSet ds = SQLHelper.Query(sql);

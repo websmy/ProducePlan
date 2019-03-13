@@ -76,8 +76,7 @@ public partial class WorkForms_Mom : System.Web.UI.Page
 
             //+ " LEFT JOIN SO_SODetails ON a.socode = SO_SODetails.csocode and a.invcode=SO_SODetails.cinvcode"
 
-            + " WHERE a.status <> 4  and a.Qty <> a.QualifiedInQty and a.Status = 3 and Department.[cDepName] in (" +
-            str + ")";
+            + " WHERE a.status <> 4  and a.Qty <> a.QualifiedInQty and a.Status = 3 ";
         //+" WHERE a.status <> 4 and a.Qty <> a.QualifiedInQty and a.Status = 3 ";
 
         //sql = "SELECT TOP " + pageSize + " * FROM aViewName WHERE (modid > (SELECT MAX(modid) FROM (SELECT TOP (" + pageSize * (curpage - 1) + ") modid FROM aViewName  ORDER BY modid) AS T)) ";                                                   
@@ -407,8 +406,7 @@ public partial class WorkForms_Mom : System.Web.UI.Page
         + " LEFT JOIN [Department] ON a.MDeptCode = [Department].[cDepCode]"
         + " LEFT join SO_SODetails on a.sodid=SO_SODetails.iSOsID "
         + " LEFT join SO_SOMain on SO_SODetails.cSOCode=SO_SOMain.cSOCode AND a.OrderSeq=SO_SODetails.iRowNo "
-        + " WHERE a.status <> 4  and a.Qty <> a.QualifiedInQty and a.Status = 3 and Department.[cDepName] in (" +
-        str + ")";
+        + " WHERE a.status <> 4  and a.Qty <> a.QualifiedInQty and a.Status = 3 ";
 
 
         //string sql = "select * from aViewName where 1=1 ";
@@ -1425,8 +1423,7 @@ public partial class WorkForms_Mom : System.Web.UI.Page
 
             //+ " LEFT JOIN SO_SODetails ON a.socode = SO_SODetails.csocode and a.invcode=SO_SODetails.cinvcode"
 
-            + " WHERE a.status <> 4  and a.Qty <> a.QualifiedInQty and a.Status = 3 and Department.[cDepName] in (" +
-            str + ")";
+            + " WHERE a.status <> 4  and a.Qty <> a.QualifiedInQty and a.Status = 3 ";
         //+" WHERE a.status <> 4 and a.Qty <> a.QualifiedInQty and a.Status = 3 ";
 
         //sql = "SELECT TOP " + pageSize + " * FROM aViewName WHERE (modid > (SELECT MAX(modid) FROM (SELECT TOP (" + pageSize * (curpage - 1) + ") modid FROM aViewName  ORDER BY modid) AS T)) ";                                                   

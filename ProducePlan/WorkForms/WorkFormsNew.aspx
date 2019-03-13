@@ -16,7 +16,7 @@
             BorderWidth="1px" Width="100%" CellPadding="3" AutoGenerateColumns="False" ShowFooter="false"
                                   
             AllowPaging="True" 
-            onpageindexchanging="GridView3_PageIndexChanging" PageSize="20">
+            onpageindexchanging="GridView3_PageIndexChanging" PageSize="500">
             <AlternatingRowStyle BackColor="#F2F2F2" />
             <Columns>
                  <asp:BoundField DataField="SoCode" HeaderText="销售订单号" >
@@ -35,7 +35,11 @@
                         <asp:BoundField DataField="s3name" HeaderText="名称" >
 
                         </asp:BoundField>
-                        <asp:BoundField DataField="s3qyt" HeaderText="数量" >
+                        <asp:BoundField DataField="s3yaoling" HeaderText="需求数量-已领数量" >
+                    
+                        </asp:BoundField>
+
+                         <asp:BoundField DataField="s3xiancun" HeaderText="仓库数量（不包括废品库）" >
                     
                         </asp:BoundField>
             </Columns>

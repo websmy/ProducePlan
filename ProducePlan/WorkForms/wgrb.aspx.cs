@@ -80,7 +80,7 @@ public partial class WorkForms_Default : System.Web.UI.Page
             + " left join Department on rdrecord10.cDepCode=Department.cDepCode"
             + " where rdrecord10.cBusType='成品入库'";
         sql += " and 1=1 ";
-        sql += " and rdrecord10.ddate >='" + txtStartDate.Text + "' and rdrecord10.ddate <='" + txtEndDate.Text + "' and Department.[cDepName] in (" + str + ")";
+        sql += " and rdrecord10.ddate >='" + txtStartDate.Text + "' and rdrecord10.ddate <='" + txtEndDate.Text + "' ";
         if (!"全部".Equals(DDLdept.SelectedValue))
         {
             sql += " and [cDepName]='" + DDLdept.SelectedValue + "'";
@@ -302,7 +302,7 @@ public partial class WorkForms_Default : System.Web.UI.Page
           "left join mom_morder on mom_orderdetail.modid=mom_morder.modid " +
           "left join inventory on mom_orderdetail.InvCode=inventory.cInvCode " +
           "left join [Department] on mom_orderdetail.MDeptCode=[Department].[cDepCode] " +
-          "where mom_orderdetail.status<> 4 and mom_orderdetail.Qty <> mom_orderdetail.QualifiedInQty and mom_orderdetail.Status = 3 and Department.[cDepName] in (" + str + ")";
+          "where mom_orderdetail.status<> 4 and mom_orderdetail.Qty <> mom_orderdetail.QualifiedInQty and mom_orderdetail.Status = 3  ";
 
         //string sql = "select * from aViewName where 1=1 ";
         DataSet ds = SQLHelper.Query(sql);
@@ -1078,7 +1078,7 @@ public partial class WorkForms_Default : System.Web.UI.Page
             + " left join Department on rdrecord10.cDepCode=Department.cDepCode"
             + " where rdrecord10.cBusType='成品入库'";
         sql += " and 1=1 ";
-        sql += " and rdrecord10.ddate >='" + txtStartDate.Text + "' and rdrecord10.ddate <='" + txtEndDate.Text + "' and Department.[cDepName] in (" + str + ")";
+        sql += " and rdrecord10.ddate >='" + txtStartDate.Text + "' and rdrecord10.ddate <='" + txtEndDate.Text + "' ";
         if (!"全部".Equals(DDLdept.SelectedValue))
         {
             sql += " and [cDepName]='" + DDLdept.SelectedValue + "'";
