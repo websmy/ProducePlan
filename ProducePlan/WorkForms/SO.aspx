@@ -92,7 +92,7 @@
             <ContentTemplate>
                 <asp:GridView ID="GridView1" runat="server" BackColor="White" BorderColor="#CCCCCC"
                     BorderWidth="1px" CellPadding="3" Width="100%" AutoGenerateColumns="False"
-                    OnRowCommand="GridView1_RowCommand" OnRowDataBound="GridView1_RowDataBound">
+                    OnRowCommand="GridView1_RowCommand" OnRowDataBound="GridView1_RowDataBound" >
                     <Columns>
                         <asp:TemplateField HeaderText="cannotsee" FooterStyle-CssClass="hidden1" HeaderStyle-CssClass="hidden1"
                             ItemStyle-CssClass="hidden1">

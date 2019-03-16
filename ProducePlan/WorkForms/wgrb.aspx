@@ -99,8 +99,9 @@
                             <HeaderStyle CssClass="hidden1" />
                             <ItemStyle Width="0px" />
                         </asp:TemplateField>
-                        <asp:BoundField DataField="SoCode" HeaderText="销售订单号" />
-                        <asp:BoundField DataField="impoids" HeaderText="生产订单号" />
+         
+                        <asp:BoundField DataField="iordercode" HeaderText="销售订单号" />
+                        <asp:BoundField DataField="cmocode" HeaderText="生产订单号" />
                         <asp:BoundField DataField="ccode" HeaderText="单据号" />
                         <asp:BoundField DataField="ddate" HeaderText="日期" DataFormatString="{0:yyyy-M-d}" />
                         <asp:BoundField DataField="cDepName" HeaderText="部门" />

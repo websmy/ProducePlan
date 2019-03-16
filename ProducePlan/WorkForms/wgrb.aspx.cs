@@ -70,7 +70,7 @@ public partial class WorkForms_Default : System.Web.UI.Page
         }
 
         string sql =
-            "select mom_orderdetail.SoCode ,  mom_order.mocode as impoids ,rdrecord10.ccode,rdrecord10.ddate, Department.cDepname, rdrecords10.cInvCode,Inventory.cinvname,Inventory.cInvDefine14, mom_orderdetail.qty, rdrecords10.iquantity,'' as iunitcost,'' as totalprice ,rdrecords10.iSoDID"
+            "select mom_orderdetail.SoCode ,  mom_order.mocode as impoids ,rdrecord10.ccode,rdrecord10.ddate, Department.cDepname, rdrecords10.cInvCode,Inventory.cinvname,Inventory.cInvDefine14, mom_orderdetail.qty, rdrecords10.iquantity,'' as iunitcost,'' as totalprice ,rdrecords10.iSoDID,rdrecords10.iordercode,rdrecords10.iorderseq,rdrecords10.cmocode "
             + " from rdrecords10"
             + " left join rdrecord10 on rdrecords10.id=rdrecord10.id"
             //+ " left join SO_SODetails on rdrecords10.isodid=SO_SODetails.isosid"
@@ -116,12 +116,18 @@ public partial class WorkForms_Default : System.Web.UI.Page
         DataSet ds = SQLHelper.Query(sql);
         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
         {
+            if (ds.Tables[0].Rows[i]["ccode"].Equals("0000235468") || ds.Tables[0].Rows[i]["ccode"].Equals("0000235469"))
+            {
+                ;
+            }
             try
             {
                 //ds.Tables[0].Rows[i]["iunitcost"] = "";
                 double iUnitPrice = 0;
                 bool hasError = false;
-                string sql4 = "select iNatUnitPrice from [SO_SODetails] where isosid=" + ds.Tables[0].Rows[i]["isodid"] + " and cInvCode='" + ds.Tables[0].Rows[i]["cInvCode"] + "'";
+                //string sql4 = "select iNatUnitPrice from [SO_SODetails] where isosid=" + ds.Tables[0].Rows[i]["isodid"] + " and cInvCode='" + ds.Tables[0].Rows[i]["cInvCode"] + "'";
+                string sql4 = "select iNatUnitPrice from [SO_SODetails] where cSOCode=" + ds.Tables[0].Rows[i]["iordercode"] + "  and iRowNo=" + ds.Tables[0].Rows[i]["iorderseq"] + "  and cInvCode='" + ds.Tables[0].Rows[i]["cInvCode"] + "'   ";
+                
                 DataSet ds4 = SQLHelper.Query(sql4);
                 if (ds4.Tables[0].Rows.Count == 1)
                 {
