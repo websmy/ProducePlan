@@ -351,7 +351,7 @@ public partial class WorkForms_SO : System.Web.UI.Page
 
             //"  inner join mom_orderdetail on mom_orderdetail.sodid=SO_SODetails.iSOsID  and mom_orderdetail.InvCode= SO_SODetails.cInvCode " +
 
-            "where  (select count(*) from  mom_orderdetail where mom_orderdetail.sodid=SO_SODetails.iSOsID  and mom_orderdetail.InvCode= SO_SODetails.cInvCode and SO_SODetails.iQuantity=mom_orderdetail.QualifiedInQty )=0  and SO_SODetails.cSCloser is null and SO_SODetails.iQuantity > ISNULL(SO_SODetails.iFHQuantity,0)  " +
+            " where  (select count(*) from  mom_orderdetail where mom_orderdetail.sodid=SO_SODetails.iSOsID  and mom_orderdetail.InvCode= SO_SODetails.cInvCode and SO_SODetails.iQuantity=mom_orderdetail.QualifiedInQty )=0  and SO_SODetails.cSCloser is null and SO_SODetails.iQuantity > ISNULL(SO_SODetails.iFHQuantity,0)  " +
             " ";
         sql += " and 1=1 ";
         //=============================================2014-10-30
@@ -867,9 +867,9 @@ public partial class WorkForms_SO : System.Web.UI.Page
             if (cb.Checked)
             {
 
-                HiddenField cSOCode = GridView1.Rows[i].FindControl("cSOCode") as HiddenField;
+                HiddenField iSOsID = GridView1.Rows[i].FindControl("iSOsID") as HiddenField;
 
-                lst_cSOCode.Add(cSOCode.Value);
+                lst_cSOCode.Add(iSOsID.Value);
                 ischecked = true;
             }
         }

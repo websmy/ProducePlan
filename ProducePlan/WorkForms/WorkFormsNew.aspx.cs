@@ -109,7 +109,7 @@ public partial class WorkFormsNew : System.Web.UI.Page
 "         mom_moallocate.invcode," +
 "         inventory.cinvname," +
 "         mom_moallocate.qty," +
-"         mom_moallocate.issqty," +
+"         mom_moallocate.issqty,mom_moallocate.SoSeq, " +
 "" +
 "            (SELECT Isnull(sum(CurrentStock.iQuantity) - sum(CurrentStock.fOutQuantity)," +
 "         0)" +
@@ -128,9 +128,9 @@ public partial class WorkFormsNew : System.Web.UI.Page
 "                FROM CurrentStock" +
 "                WHERE CurrentStock.cInvCode =mom_moallocate.invcode and CurrentStock.cWhCode not in('08','09','15','24','26','31','34','42')) ) s3" +
 "            WHERE s1.cSOCode=s2.SoCode" +
-"                AND s2.modid=s3.MoDId" +
+"                AND s2.modid=s3.MoDId   AND s2.sodid = s1.iSOsID " +
 "            " +
-"            and  s1.cSOCode in('"+ Session["strConnected"].ToString() + "')";
+"            and  s2.sodid in('" + Session["strConnected"].ToString() + "')";
 
 
            _dsBind = SQLHelper.Query(sqlString);

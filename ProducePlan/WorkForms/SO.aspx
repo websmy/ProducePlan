@@ -57,7 +57,7 @@
                         </asp:DropDownList>
                         &nbsp;客户<asp:DropDownList ID="DropDownList4" runat="server">
                         </asp:DropDownList>
-                        销售订单号<asp:TextBox ID="TextBox3" runat="server" Width="80px"></asp:TextBox>
+                        销售订单号<asp:TextBox ID="TextBox3" runat="server" Width="80px">0000042583</asp:TextBox>
 
 
                         评审交期 从<asp:TextBox ID="txtStartDate" runat="server" Width="100"></asp:TextBox>
