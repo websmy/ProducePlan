@@ -16,7 +16,7 @@
             BorderWidth="1px" Width="100%" CellPadding="3" AutoGenerateColumns="False" ShowFooter="false"
                                   
             AllowPaging="True" 
-            onpageindexchanging="GridView3_PageIndexChanging" PageSize="1000">
+            onpageindexchanging="GridView3_PageIndexChanging" PageSize="300">
             <AlternatingRowStyle BackColor="#F2F2F2" />
             <Columns>
                  <asp:BoundField DataField="SoCode" HeaderText="销售订单号" >

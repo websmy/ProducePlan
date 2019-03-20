@@ -478,7 +478,7 @@ public partial class WorkForms_SO : System.Web.UI.Page
         //启用分页
         ps.AllowPaging = true;
         //设置每页为3条数据
-        ps.PageSize = 1000;
+        ps.PageSize = 300;
 
         if (isFirstPage)
         {
