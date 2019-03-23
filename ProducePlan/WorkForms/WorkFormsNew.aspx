@@ -42,6 +42,9 @@
                          <asp:BoundField DataField="s3xiancun" HeaderText="仓库数量（不包括废品库）" >
                     
                         </asp:BoundField>
+
+                        <asp:BoundField DataField="dPreMoDate" HeaderText="预完工日期" DataFormatString="{0:yyyy-MM-dd}" ></asp:BoundField>
+                        <asp:BoundField DataField="cDefine37" HeaderText="评审交期" DataFormatString="{0:yyyy-MM-dd}" ></asp:BoundField>
             </Columns>
             <EmptyDataTemplate>
                 没有数据

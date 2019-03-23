@@ -54,7 +54,7 @@ public partial class WorkFormsNew : System.Web.UI.Page
     {
         _dsBind = new DataSet();
 		
-		        string sqlString = "SELECT s1.*,s2.*,s3.invcode s3code ,s3.cinvname s3name ,s3.qty s3yaoling,s3.xiancun  s3xiancun" +
+		        string sqlString = "SELECT isnull(s1.cDefine37,s1.dPreMoDate) cDefine37,s1.dPreMoDate,s2.*,s3.invcode s3code ,s3.cinvname s3name ,s3.qty s3yaoling,s3.xiancun  s3xiancun" +
 "    FROM" +
 "    (SELECT '' AS xiancun,SO_SODetails.iNatSum,SO_SODetails.iSOsID,SO_SODetails.iFHQuantity,SO_SODetails.iKPQuantity,SO_SOMain.[cMaker],Person.[cPersonName],inventory.iInvAdvance,SO_SODetails.iRowNo,SO_SODetails.AutoID,SO_SOMain.cSOCode,SO_SOMain.cCusName,SO_SOMain.dDate,SO_SODetails.cInvCode,SO_SODetails.cInvName,SO_SODetails.iQuantity,SO_SODetails.dPreMoDate,SO_SODetails.cSCloser,SO_SODetails.cdefine26,SO_SODetails.cdefine37" +
 "    FROM [SO_SODetails]" +

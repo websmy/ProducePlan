@@ -342,7 +342,7 @@ public partial class WorkForms_SO : System.Web.UI.Page
         //Rep1.DataSource = ds.Tables[0];
         //========================================2014-10-30
         string sql =
-            "select  '' as xiancun,SO_SODetails.iNatSum,SO_SODetails.iSOsID,SO_SODetails.iFHQuantity,SO_SODetails.iKPQuantity,SO_SOMain.[cMaker],Person.[cPersonName],inventory.iInvAdvance,SO_SODetails.iRowNo,SO_SODetails.AutoID,SO_SOMain.cSOCode,SO_SOMain.cCusName,SO_SOMain.dDate,SO_SODetails.cInvCode,SO_SODetails.cInvName,SO_SODetails.iQuantity,SO_SODetails.dPreMoDate,SO_SODetails.cSCloser,SO_SODetails.iQuantity,SO_SODetails.cdefine26,SO_SODetails.cdefine37 " +
+            "select  '' as xiancun,SO_SODetails.iNatSum,SO_SODetails.iSOsID,SO_SODetails.iFHQuantity,SO_SODetails.iKPQuantity,SO_SOMain.[cMaker],Person.[cPersonName],inventory.iInvAdvance,SO_SODetails.iRowNo,SO_SODetails.AutoID,SO_SOMain.cSOCode,SO_SOMain.cCusName,SO_SOMain.dDate,SO_SODetails.cInvCode,SO_SODetails.cInvName,SO_SODetails.iQuantity,SO_SODetails.dPreMoDate,SO_SODetails.cSCloser,SO_SODetails.iQuantity,SO_SODetails.cdefine26,isnull(SO_SODetails.cDefine37,SO_SODetails.dPreMoDate)  cDefine37 " +
             "from [SO_SODetails] " +
             "left join [SO_SOMain] on [SO_SODetails].csocode=[SO_SOMain].csocode " +
             "left join [inventory] on SO_SODetails.cInvCode=[inventory].cInvCode " +
@@ -376,12 +376,12 @@ public partial class WorkForms_SO : System.Web.UI.Page
 
         if (!"".Equals(txtStartDate.Text))
         {
-            sql += "  and SO_SODetails.cdefine37 >= '" + txtStartDate.Text + "' ";
+            sql += "  and isnull(SO_SODetails.cDefine37,SO_SODetails.dPreMoDate) >= '" + txtStartDate.Text + "' ";
         }
 
         if (!"".Equals(txtEndDate.Text))
         {
-            sql += "  and SO_SODetails.cdefine37 <= '" + txtEndDate.Text + "' ";
+            sql += "  and isnull(SO_SODetails.cDefine37,SO_SODetails.dPreMoDate) <= '" + txtEndDate.Text + "' ";
         }
 
 
@@ -628,7 +628,7 @@ public partial class WorkForms_SO : System.Web.UI.Page
 
         //========================================2014-10-30
         string sql =
-            "select  '' as xiancun,SO_SODetails.iNatSum,SO_SODetails.iSOsID,SO_SODetails.iFHQuantity,SO_SODetails.iKPQuantity,SO_SOMain.[cMaker],Person.[cPersonName],inventory.iInvAdvance,SO_SODetails.iRowNo,SO_SODetails.AutoID,SO_SOMain.cSOCode,SO_SOMain.cCusName,SO_SOMain.dDate,SO_SODetails.cInvCode,SO_SODetails.cInvName,SO_SODetails.iQuantity,SO_SODetails.dPreMoDate,SO_SODetails.cSCloser,SO_SODetails.iQuantity,SO_SODetails.cdefine26,SO_SODetails.cdefine37 " +
+            "select  '' as xiancun,SO_SODetails.iNatSum,SO_SODetails.iSOsID,SO_SODetails.iFHQuantity,SO_SODetails.iKPQuantity,SO_SOMain.[cMaker],Person.[cPersonName],inventory.iInvAdvance,SO_SODetails.iRowNo,SO_SODetails.AutoID,SO_SOMain.cSOCode,SO_SOMain.cCusName,SO_SOMain.dDate,SO_SODetails.cInvCode,SO_SODetails.cInvName,SO_SODetails.iQuantity,SO_SODetails.dPreMoDate,SO_SODetails.cSCloser,SO_SODetails.iQuantity,SO_SODetails.cdefine26,isnull(SO_SODetails.cDefine37,SO_SODetails.dPreMoDate)  cDefine37  " +
             "from [SO_SODetails] " +
             "left join [SO_SOMain] on [SO_SODetails].csocode=[SO_SOMain].csocode " +
             "left join [inventory] on SO_SODetails.cInvCode=[inventory].cInvCode " +
@@ -663,12 +663,12 @@ public partial class WorkForms_SO : System.Web.UI.Page
 
         if (!"".Equals(txtStartDate.Text))
         {
-            sql += "  and SO_SODetails.cdefine37 >= '" + txtStartDate.Text + "' ";
+            sql += "  and isnull(SO_SODetails.cDefine37,SO_SODetails.dPreMoDate) >= '" + txtStartDate.Text + "' ";
         }
 
         if (!"".Equals(txtEndDate.Text))
         {
-            sql += "  and SO_SODetails.cdefine37 <= '" + txtEndDate.Text + "' ";
+            sql += "  and isnull(SO_SODetails.cDefine37,SO_SODetails.dPreMoDate) <= '" + txtEndDate.Text + "' ";
         }
 
 
@@ -829,10 +829,10 @@ public partial class WorkForms_SO : System.Web.UI.Page
                 //}
 
 
-                //else if (j == 14)
-                //{
-                //    cells.Add((i + 2), (j + 1), ((Label)GridView1.Rows[i].FindControl("Label2")).Text.Trim());
-                //}
+                else if (j == 10)
+                {
+                    cells.Add((i + 2), (j + 1), ((Label)GridView1.Rows[i].FindControl("Label2")).Text.Trim());
+                }
                 //else if (j == 15)
                 //{
                 //    cells.Add((i + 2), (j + 1), ((Label)GridView1.Rows[i].FindControl("Label3")).Text.Trim());
