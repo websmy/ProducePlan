@@ -513,8 +513,8 @@ public partial class WorkForms_MomPop : System.Web.UI.Page
                                     autoid = Convert.ToInt32(par[4].SqlValue.ToString()) - needCnt + 1;
 
 
-                                    sql = "INSERT [RdRecord11] ([ID], [bRdFlag], [cVouchType], [cBusType], [cSource], [cBusCode], [cWhCode], [dDate], [cCode], [cRdCode],[cDepCode], [cMaker], [iMQuantity], [VT_ID],[cPsPcode], [cMPoCode],[ipurorderid],cDefine16,bOMFirst,bredvouch,[cDefine14])" +
-                                           "VALUES (" + curId + ", 0, N'11', N'领料', N'生产订单', NULL, N'" + dataTableDistinct.Rows[i][0] + "', '" + txtDate.Text + "', '" + cCode + "', N'" + DropDownList2.SelectedValue + "', N'" + depCode + "', N'" + User.Identity.Name + "', " + iMQuantity + ", 65, '" + cPsPcode + "', '" + dataRow["mocode"] + "'," + ViewState["mom_orderdetailmoDid"].ToString() + ",1,0, NULL,'" + DropDownList4.SelectedItem.Text.Trim() + "' )";
+                                    sql = "INSERT [RdRecord11] ([ID], [bRdFlag], [cVouchType], [cBusType], [cSource], [cBusCode], [cWhCode], [dDate], [cCode], [cRdCode],[cDepCode], [cMaker], [iMQuantity], [VT_ID],[cPsPcode], [cMPoCode],[ipurorderid],cDefine16,bOMFirst,bredvouch,[cDefine14],[dnmaketime] )" +
+                                           "VALUES (" + curId + ", 0, N'11', N'领料', N'生产订单', NULL, N'" + dataTableDistinct.Rows[i][0] + "', '" + txtDate.Text + "', '" + cCode + "', N'" + DropDownList2.SelectedValue + "', N'" + depCode + "', N'" + User.Identity.Name + "', " + iMQuantity + ", 65, '" + cPsPcode + "', '" + dataRow["mocode"] + "'," + ViewState["mom_orderdetailmoDid"].ToString() + ",1,0, NULL,'" + DropDownList4.SelectedItem.Text.Trim() + "',GETDATE() )";
                                     SQLStringList.Add(sql);
                                     mainTableAdded = true;
 
