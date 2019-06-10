@@ -22,6 +22,40 @@ public partial class WorkForms_Mom : System.Web.UI.Page
         }
     }
 
+
+    private void SqlAppend(ref string sql)
+    {
+        if (!"全部".Equals(DropDownList是否缺料具体查询类别.SelectedValue))
+        {
+            switch (DropDownList是否缺料具体查询类别.SelectedValue)
+            {
+
+                case "0103":
+                    sql += " and ( LEFT(inventory.cInvCCode,4)='0103')  ";
+                    break;
+
+                case "020201":
+                    sql += " and ( LEFT(inventory.cInvCCode,6)='020201')  ";
+                    break;
+
+                case "020202":
+                    sql += " and ( LEFT(inventory.cInvCCode,6)='020202')  ";
+                    break;
+
+                case "02020302":
+                    sql += " and ( LEFT(inventory.cInvCCode,8)='02020302')  ";
+                    break;
+
+                case "02020307":
+                    sql += " and ( LEFT(inventory.cInvCCode,8)='02020307')  ";
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
     protected void Bind(bool isFirstPage)
     {
         //GridView1.DataSource = null;
@@ -84,8 +118,23 @@ public partial class WorkForms_Mom : System.Web.UI.Page
 
         if (!"全部".Equals(DropDownList3.SelectedValue))
         {
-            sql += " and [cDepName]='" + DropDownList3.SelectedValue + "'";
+            sql += " and [inventory]='" + DropDownList3.SelectedValue + "'";
         }
+
+
+        if (!"全部".Equals(DropDownList是否是产成品.SelectedValue))
+        {
+            if (!"是".Equals(DropDownList是否是产成品.SelectedValue))
+            {
+                sql += " and ( LEFT(inventory.cInvCCode,2)='03') ";
+            }
+            else
+            {
+                sql += " and ( LEFT(inventory.cInvCCode,2)!='03') ";
+            }
+
+        }
+
         if (!"全部".Equals(DropDownList4.SelectedValue))
         {
             if (string.IsNullOrEmpty(DropDownList4.SelectedValue))
@@ -124,7 +173,7 @@ public partial class WorkForms_Mom : System.Web.UI.Page
 
 
 
-        if (!"全部".Equals(DropDownList6.SelectedValue))
+        if (!"全部".Equals(DropDownList是否缺料.SelectedValue))
         {
             //sql += "            and  "
             //+ "( "
@@ -136,7 +185,7 @@ public partial class WorkForms_Mom : System.Web.UI.Page
             //+ "end  "
             //+ ") ";
 
-            //if ("是".Equals(DropDownList6.SelectedValue))
+            //if ("是".Equals(DropDownList是否缺料.SelectedValue))
             //{
             //    sql += ">0";
             //}
@@ -145,13 +194,17 @@ public partial class WorkForms_Mom : System.Web.UI.Page
             //    sql += "=0";
             //}
 
-            if ("是".Equals(DropDownList6.SelectedValue))
+            if ("是".Equals(DropDownList是否缺料.SelectedValue))
             {
                 sql +=
                     " and (SELECT Count(*) FROM mom_moallocate "
                     + " LEFT JOIN mom_orderdetail ON mom_moallocate.modid = mom_orderdetail.modid"
-                    + " LEFT JOIN inventory  ON mom_moallocate.invcode = inventory.cinvcode"
-                    +
+                    + " LEFT JOIN inventory  ON mom_moallocate.invcode = inventory.cinvcode";
+
+
+                SqlAppend(ref sql);
+
+                sql +=
                     " LEFT JOIN CurrentStock ON CurrentStock.cWhCode = inventory.cDefWareHouse AND CurrentStock.cInvCode = mom_moallocate.InvCode"
                     +
                     " WHERE  mom_moallocate.modid = a.modid AND mom_moallocate.qty - mom_moallocate.issqty > Isnull(CurrentStock.iQuantity - CurrentStock.fOutQuantity, 0))>0";
@@ -161,8 +214,11 @@ public partial class WorkForms_Mom : System.Web.UI.Page
                 sql +=
                     " and (SELECT Count(*) FROM mom_moallocate "
                     + " LEFT JOIN mom_orderdetail ON mom_moallocate.modid = mom_orderdetail.modid"
-                    + " LEFT JOIN inventory  ON mom_moallocate.invcode = inventory.cinvcode"
-                    +
+                    + " LEFT JOIN inventory  ON mom_moallocate.invcode = inventory.cinvcode";
+
+                SqlAppend(ref sql);
+
+                sql    +=
                     " LEFT JOIN CurrentStock ON CurrentStock.cWhCode = inventory.cDefWareHouse AND CurrentStock.cInvCode = mom_moallocate.InvCode"
                     +
                     " WHERE  mom_moallocate.modid = a.modid AND mom_moallocate.qty - mom_moallocate.issqty > Isnull(CurrentStock.iQuantity - CurrentStock.fOutQuantity, 0))=0";
@@ -171,24 +227,24 @@ public partial class WorkForms_Mom : System.Web.UI.Page
 
 
 
-        if (!"全部".Equals(DropDownList逾期定单.SelectedValue))
-        {
-            if ("是".Equals(DropDownList逾期定单.SelectedValue))
-            {
-                sql +=
-                    " and convert(datetime,mom_morder.Duedate,110) < getdate() ";
-            }
-            else
-            {
-                sql +=
-                    "  and convert(datetime,mom_morder.Duedate,110) >= getdate() ";
-            }
-        }
+        //if (!"全部".Equals(DropDownList逾期定单.SelectedValue))
+        //{
+        //    if ("是".Equals(DropDownList逾期定单.SelectedValue))
+        //    {
+        //        sql +=
+        //            " and convert(datetime,mom_morder.Duedate,110) < getdate() ";
+        //    }
+        //    else
+        //    {
+        //        sql +=
+        //            "  and convert(datetime,mom_morder.Duedate,110) >= getdate() ";
+        //    }
+        //}
 
-        if (!"全部".Equals(DropDownList逾期原因.SelectedValue))
+        if (!"全部".Equals(DropDownList是否领料完成.SelectedValue))
         {
             sql +=
-                    "  and a.define25 like ('" + DropDownList逾期原因.SelectedValue + "%') ";          
+                    "  and a.define25 like ('" + DropDownList是否领料完成.SelectedValue + "%') ";          
         }
 
         if (!"".Equals(txtStartDate.Text))
@@ -221,7 +277,7 @@ public partial class WorkForms_Mom : System.Web.UI.Page
         DataSet ds = SQLHelper.Query(sql);
 
         DataTable dt = ds.Tables[0];
-        //if (!"全部".Equals(DropDownList6.SelectedValue))
+        //if (!"全部".Equals(DropDownList是否缺料.SelectedValue))
         //{
         //    for (int i = 0; i < dt.Rows.Count; i++)
         //    {
@@ -257,9 +313,9 @@ public partial class WorkForms_Mom : System.Web.UI.Page
 
         //    }
         //}
-        //if (!"全部".Equals(DropDownList6.SelectedValue))
+        //if (!"全部".Equals(DropDownList是否缺料.SelectedValue))
         //{          
-        //    if ("是".Equals(DropDownList6.SelectedValue))
+        //    if ("是".Equals(DropDownList是否缺料.SelectedValue))
         //    {
         //        DataRow[] drArr = dt.Select("是否缺料='是'");
         //        DataTable dtNew = dt.Clone();
@@ -686,9 +742,9 @@ public partial class WorkForms_Mom : System.Web.UI.Page
     //    }
 
 
-    //    if (!"全部".Equals(DropDownList6.SelectedValue))
+    //    if (!"全部".Equals(DropDownList是否缺料.SelectedValue))
     //    {
-    //        if ("是".Equals(DropDownList6.SelectedValue))
+    //        if ("是".Equals(DropDownList是否缺料.SelectedValue))
     //        {
     //            sql += " and 是否缺料 ='是'";
     //        }
@@ -721,9 +777,9 @@ public partial class WorkForms_Mom : System.Web.UI.Page
     //    //        }
     //    //    }
 
-    //    //    if (!"全部".Equals(DropDownList6.SelectedValue))
+    //    //    if (!"全部".Equals(DropDownList是否缺料.SelectedValue))
     //    //    {
-    //    //        if (!dt.Rows[i]["是否缺料"].Equals(DropDownList6.SelectedValue))
+    //    //        if (!dt.Rows[i]["是否缺料"].Equals(DropDownList是否缺料.SelectedValue))
     //    //        {
     //    //            dt.Rows[i].Delete();
     //    //        }
@@ -1469,7 +1525,7 @@ public partial class WorkForms_Mom : System.Web.UI.Page
             }
         }
 
-        //if (!"全部".Equals(DropDownList6.SelectedValue))
+        //if (!"全部".Equals(DropDownList是否缺料.SelectedValue))
         //{
         //    //sql += "            and  "
         //    //+ "( "
@@ -1481,7 +1537,7 @@ public partial class WorkForms_Mom : System.Web.UI.Page
         //    //+ "end  "
         //    //+ ") ";
 
-        //    //if ("是".Equals(DropDownList6.SelectedValue))
+        //    //if ("是".Equals(DropDownList是否缺料.SelectedValue))
         //    //{
         //    //    sql += ">0";
         //    //}
@@ -1490,7 +1546,7 @@ public partial class WorkForms_Mom : System.Web.UI.Page
         //    //    sql += "=0";
         //    //}
 
-        //    if ("是".Equals(DropDownList6.SelectedValue))
+        //    if ("是".Equals(DropDownList是否缺料.SelectedValue))
         //    {
         //        sql +=
         //            " and (SELECT Count(*) FROM mom_moallocate "
@@ -1516,25 +1572,25 @@ public partial class WorkForms_Mom : System.Web.UI.Page
 
 
 
-        if (!"全部".Equals(DropDownList逾期定单.SelectedValue))
-        {
-            if ("是".Equals(DropDownList逾期定单.SelectedValue))
-            {
-                sql +=
-                    " and convert(datetime,mom_morder.Duedate,110) < getdate() ";
-            }
-            else
-            {
-                sql +=
-                    "  and convert(datetime,mom_morder.Duedate,110) >= getdate() ";
-            }
-        }
+        //if (!"全部".Equals(DropDownList逾期定单.SelectedValue))
+        //{
+        //    if ("是".Equals(DropDownList逾期定单.SelectedValue))
+        //    {
+        //        sql +=
+        //            " and convert(datetime,mom_morder.Duedate,110) < getdate() ";
+        //    }
+        //    else
+        //    {
+        //        sql +=
+        //            "  and convert(datetime,mom_morder.Duedate,110) >= getdate() ";
+        //    }
+        //}
 
-        if (!"全部".Equals(DropDownList逾期原因.SelectedValue))
-        {
-            sql +=
-                    "  and a.define25 like ('" + DropDownList逾期原因.SelectedValue + "%') ";
-        }
+        //if (!"全部".Equals(DropDownList逾期原因.SelectedValue))
+        //{
+        //    sql +=
+        //            "  and a.define25 like ('" + DropDownList逾期原因.SelectedValue + "%') ";
+        //}
 
 
 

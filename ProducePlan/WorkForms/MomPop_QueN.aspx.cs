@@ -32,14 +32,15 @@ public partial class WorkForms_MomPop_QueN : System.Web.UI.Page
             Response.Redirect("./Mom.aspx");
             Response.End();
         }
-        DataSet ds = SQLHelper.Query("select inventory.cDefWareHouse AS whcode,mom_moallocate.[AllocateId],mom_moallocate.[MoDId],mom_moallocate.[SortSeq],mom_orderdetail.MDeptCode,Warehouse.[cWhName],mom_moallocate.invcode,inventory.cinvname,mom_moallocate.qty,mom_moallocate.issqty, 0.00 xiancun,mom_moallocate.qty-mom_moallocate.issqty yaoling " +
+        string str66 = "select inventory.cDefWareHouse AS whcode,mom_moallocate.[AllocateId],mom_moallocate.[MoDId],mom_moallocate.[SortSeq],mom_orderdetail.MDeptCode,Warehouse.[cWhName],mom_moallocate.invcode,inventory.cinvname,mom_moallocate.qty,mom_moallocate.issqty, 0.00 xiancun,mom_moallocate.qty-mom_moallocate.issqty yaoling " +
                                      "from mom_moallocate " +
                                      "left join mom_orderdetail on mom_moallocate.modid = mom_orderdetail.modid " +
                                      "left join inventory on mom_moallocate.invcode = inventory.cinvcode " +
                                      //"left join CurrentStock on CurrentStock.cWhCode = mom_moallocate.whcode and CurrentStock.cInvCode = mom_moallocate.InvCode " +
                                      "left join Warehouse on Warehouse.cWhCode = mom_moallocate.whcode  " +
-                                     "where mom_moallocate.modid=" + parValue + " " +
-                                     "order by mom_moallocate.whcode");
+                                     "where mom_moallocate.modid=" + parValue + "   " +
+                                     "order by mom_moallocate.whcode";
+        DataSet ds = SQLHelper.Query(str66);
         //this.HiddenField1.Value = row.Cells[0].Text;
         //this.HiddenField2.Value = row.Cells[4].Text;
         //this.HiddenField3.Value = row.Cells[3].Text;

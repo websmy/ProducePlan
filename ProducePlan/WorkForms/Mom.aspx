@@ -101,12 +101,29 @@
                         </asp:DropDownList>
                         销售订单号<asp:TextBox ID="TextBox1" runat="server" Width="80px"></asp:TextBox>
                         生产订单号<asp:TextBox ID="TextBox2" runat="server" Width="80px"></asp:TextBox>
-                        是否缺料<asp:DropDownList ID="DropDownList6" runat="server">
+                        是否缺料<asp:DropDownList ID="DropDownList是否缺料" runat="server">
                             <asp:ListItem Selected="True">全部</asp:ListItem>
                             <asp:ListItem>是</asp:ListItem>
                             <asp:ListItem>否</asp:ListItem>
                         </asp:DropDownList>
-                        是否是逾期定单<asp:DropDownList ID="DropDownList逾期定单" runat="server">
+
+                        是否缺料具体查询类别<asp:DropDownList ID="DropDownList是否缺料具体查询类别" runat="server">
+                            <asp:ListItem Selected="True">全部</asp:ListItem>
+                            <asp:ListItem>0103</asp:ListItem>
+                            <asp:ListItem>020201</asp:ListItem>
+                            <asp:ListItem>020202</asp:ListItem>
+                            <asp:ListItem>02020302</asp:ListItem>
+                            <asp:ListItem>02020307</asp:ListItem>
+                        </asp:DropDownList>
+
+                         是否是产成品<asp:DropDownList ID="DropDownList是否是产成品" runat="server">
+                            <asp:ListItem Selected="True">全部</asp:ListItem>
+                            <asp:ListItem>是</asp:ListItem>
+                            <asp:ListItem>否</asp:ListItem>
+                        </asp:DropDownList>
+
+
+                       <%-- 是否是逾期定单<asp:DropDownList ID="DropDownList逾期定单" runat="server">
                             <asp:ListItem Selected="True">全部</asp:ListItem>
                             <asp:ListItem>是</asp:ListItem>
                             <asp:ListItem>否</asp:ListItem>
@@ -120,9 +137,14 @@
                                      <asp:ListItem>设备原因</asp:ListItem> 
                                      <asp:ListItem>质量原因</asp:ListItem> 
                                      <asp:ListItem>技术原因</asp:ListItem> 
-                          </asp:DropDownList>
+                          </asp:DropDownList>--%>
                       
-                          
+                          是否领料完成<asp:DropDownList ID="DropDownList是否领料完成" runat="server">
+                            <asp:ListItem Selected="True">全部</asp:ListItem>
+                            <asp:ListItem>是</asp:ListItem>
+                            <asp:ListItem>否</asp:ListItem>
+                        </asp:DropDownList>
+
                                                   制单日期 从<asp:TextBox ID="txtStartDate" runat="server" Width="100"></asp:TextBox>
                         <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="请输入正确日期格式!"
                             Operator="DataTypeCheck" Type="Date" Display="Dynamic" 
