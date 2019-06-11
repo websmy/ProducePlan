@@ -107,14 +107,16 @@
                             <asp:ListItem>否</asp:ListItem>
                         </asp:DropDownList>
 
-                        是否缺料具体查询类别<asp:DropDownList ID="DropDownList是否缺料具体查询类别" runat="server">
+                        <asp:CheckBox ID="CheckBox是否缺料具体查询类别" Text="是否缺料具体查询类别"  TextAlign="Left" runat="server" />
+                        
+                      <%--  <asp:DropDownList ID="DropDownList是否缺料具体查询类别" runat="server">
                             <asp:ListItem Selected="True">全部</asp:ListItem>
                             <asp:ListItem>0103</asp:ListItem>
                             <asp:ListItem>020201</asp:ListItem>
                             <asp:ListItem>020202</asp:ListItem>
                             <asp:ListItem>02020302</asp:ListItem>
                             <asp:ListItem>02020307</asp:ListItem>
-                        </asp:DropDownList>
+                        </asp:DropDownList>--%>
 
                          是否是产成品<asp:DropDownList ID="DropDownList是否是产成品" runat="server">
                             <asp:ListItem Selected="True">全部</asp:ListItem>

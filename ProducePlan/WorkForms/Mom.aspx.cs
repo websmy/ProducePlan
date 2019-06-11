@@ -25,35 +25,40 @@ public partial class WorkForms_Mom : System.Web.UI.Page
 
     private void SqlAppend(ref string sql)
     {
-        if (!"全部".Equals(DropDownList是否缺料具体查询类别.SelectedValue))
+
+        if (CheckBox是否缺料具体查询类别.Checked)
         {
-            switch (DropDownList是否缺料具体查询类别.SelectedValue)
-            {
-
-                case "0103":
-                    sql += " and ( LEFT(inventory.cInvCCode,4)='0103')  ";
-                    break;
-
-                case "020201":
-                    sql += " and ( LEFT(inventory.cInvCCode,6)='020201')  ";
-                    break;
-
-                case "020202":
-                    sql += " and ( LEFT(inventory.cInvCCode,6)='020202')  ";
-                    break;
-
-                case "02020302":
-                    sql += " and ( LEFT(inventory.cInvCCode,8)='02020302')  ";
-                    break;
-
-                case "02020307":
-                    sql += " and ( LEFT(inventory.cInvCCode,8)='02020307')  ";
-                    break;
-
-                default:
-                    break;
-            }
+            sql += " and (LEFT(inventory.cInvCCode, 4) = '0103' or LEFT(inventory.cInvCCode, 6) = '020201' or LEFT(inventory.cInvCCode, 6) = '020202' or LEFT(inventory.cInvCCode, 8) = '02020302' or LEFT(inventory.cInvCCode, 8) = '02020307') ";
         }
+        //if (!"全部".Equals(DropDownList是否缺料具体查询类别.SelectedValue))
+        //{
+        //    switch (DropDownList是否缺料具体查询类别.SelectedValue)
+        //    {
+
+        //        case "0103":
+        //            sql += " and ( LEFT(inventory.cInvCCode,4)='0103')  ";
+        //            break;
+
+        //        case "020201":
+        //            sql += " and ( LEFT(inventory.cInvCCode,6)='020201')  ";
+        //            break;
+
+        //        case "020202":
+        //            sql += " and ( LEFT(inventory.cInvCCode,6)='020202')  ";
+        //            break;
+
+        //        case "02020302":
+        //            sql += " and ( LEFT(inventory.cInvCCode,8)='02020302')  ";
+        //            break;
+
+        //        case "02020307":
+        //            sql += " and ( LEFT(inventory.cInvCCode,8)='02020307')  ";
+        //            break;
+
+        //        default:
+        //            break;
+        //    }
+        //}
     }
 
     protected void Bind(bool isFirstPage)
