@@ -1,5 +1,5 @@
-﻿<%@ Page Title="生产车间排程" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
-    CodeFile="Mom.aspx.cs" Inherits="WorkForms_Mom" %>
+﻿<%@ Page Title="日装配计划列表" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
+    CodeFile="Mom1.aspx.cs" Inherits="WorkForms_Mom1" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
@@ -25,31 +25,28 @@
             }
         }
 
-        function isChecked(ctlName) {
 
-           
+        function isChecked(ctlName) {
             var ctl = document.getElementById(ctlName);//根据控件的在客户端所呈现的ID获取控件
             var checkbox = ctl.getElementsByTagName('input');//获取该控件内标签为input的控件
             /*所有Button、TextBox、CheckBox、RadioButton类型的服务器端控件在解释成Html控件后，都为<input type=''./>，通过type区分它们的类型。*/
             for (var i = 0; i < checkbox.length; i++) {
                 if (checkbox[i].type == 'checkbox') {
                     if (checkbox[i].checked) {
-                        var config = confirm("确定将选中行移到【日装配列表】页面吗？")
+                        //var config = confirm("确定将选中行移到【日装配列表】页面吗？")
 
-                        if (config) {
-                            return true;
-                        }
-                        else {
-                            return false;
-                        }
-                    } 
+                        //if (config) {
+                        //    return true;
+                        //}
+                        //else {
+                        //    return false;
+                        //}
+                        return true;
+                    }
                 }
             }
             alert('没有选择任何行！');
             return false;
-
-          
-
         }
 
 　　        function openwin(name, winname, id, iWidth, iHeight, p1, p2, p3, p4, p5, p6) {
@@ -62,7 +59,7 @@
             var iTop = window.screen.availHeight - 30;       //获得窗口的垂直位置;
             var iLeft = window.screen.availWidth - 10;           //获得窗口的水平位置;
             //              window.open(url, name, 'height=' + iHeight + ',,innerHeight=' + iHeight + ',width=' + iWidth + ',innerWidth=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',toolbar=no,menubar=no,scrollbars=auto,resizeable=no,location=no,status=no');
-            var a = window.open(url, winname, "height=" + iTop + ", width=" + iLeft + ", top=" + 0 + ",left=" + 0 + ",toolbar=no, menubar=no, scrollbars=yes, resizable=yes, location=no, status=no,alwaysRaised=yes");  //写成一行
+            var a = window.open(url, winname, "height=" + iTop + ", width=" + iLeft + ", top=" + 0 + ",left=" + 0 + ",toolbar=yes, menubar=yes, scrollbars=yes, resizable=yes, location=no, status=yes");  //写成一行
             //　　            a.reload();
             //　　            a.location.reload();
             a.focus();
@@ -123,7 +120,7 @@
         } 
     </script>
     <h2 align="center">
-        &nbsp;<asp:Label ID="Label1" runat="server" Text="生产车间排程"></asp:Label>
+        &nbsp;<asp:Label ID="Label1" runat="server" Text="日装配计划列表"></asp:Label>
     </h2>
     <p>
         <asp:ScriptManager ID="ScriptManager1" runat="server" EnableScriptGlobalization="True">
@@ -140,7 +137,7 @@
                         <asp:DropDownList ID="DropDownList4" runat="server"  CssClass="hidden1">
                         </asp:DropDownList>
                         销售订单号<asp:TextBox ID="TextBox1" runat="server" Width="80px"></asp:TextBox>
-                        生产订单号<asp:TextBox ID="TextBox2" runat="server" Width="80px"  ></asp:TextBox>
+                        生产订单号<asp:TextBox ID="TextBox2" runat="server" Width="80px" ></asp:TextBox>
                         是否缺料<asp:DropDownList ID="DropDownList是否缺料" runat="server">
                             <asp:ListItem Selected="True">全部</asp:ListItem>
                             <asp:ListItem>是</asp:ListItem>
@@ -231,7 +228,7 @@
                         <asp:Button ID="btnFilter" runat="server" Text="过滤数据" OnClick="btnFilter_Click"   ValidationGroup="G1"/>
 
 
-                        <asp:Button ID="Button112" runat="server"   OnClientClick="return isChecked('MainContent_GridView1');"  OnClick="Button112_Click"  Text="移到日装配列表页面（需先选中）" />
+                        <asp:Button ID="Button112" runat="server"   OnClientClick="return isChecked('MainContent_GridView1');"   OnClick="Button112_Click"  Text="打印日装配计划（需先选中）" />
 
                     </td>
                     <td>
@@ -457,6 +454,8 @@
                             </ItemTemplate>
                         </asp:TemplateField>
 
+
+                         <asp:BoundField DataField="datetime" HeaderText="移入日期" DataFormatString="{0:G}" />
                     </Columns>
 
 

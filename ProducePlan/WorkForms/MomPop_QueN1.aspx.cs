@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Helper;
 
-public partial class WorkForms_MomPop_QueN : System.Web.UI.Page
+public partial class WorkForms_MomPop_QueN1 : System.Web.UI.Page
 {
 
    
@@ -36,9 +36,10 @@ public partial class WorkForms_MomPop_QueN : System.Web.UI.Page
                                      "from mom_moallocate " +
                                      "left join mom_orderdetail on mom_moallocate.modid = mom_orderdetail.modid " +
                                      "left join inventory on mom_moallocate.invcode = inventory.cinvcode " +
+                                       " " +
                                      //"left join CurrentStock on CurrentStock.cWhCode = mom_moallocate.whcode and CurrentStock.cInvCode = mom_moallocate.InvCode " +
                                      "left join Warehouse on Warehouse.cWhCode = mom_moallocate.whcode  " +
-                                     "where mom_moallocate.modid=" + parValue + "   " +
+                                     "where mom_moallocate.modid=" + parValue + "  and (LEFT(Inventory.cInvCCode, 4) = '0103' or LEFT(Inventory.cInvCCode, 6) = '020201' or LEFT(Inventory.cInvCCode, 6) = '020202' or LEFT(Inventory.cInvCCode, 8) = '02020302' or LEFT(Inventory.cInvCCode, 8) = '02020307')   " +
                                      "order by mom_moallocate.whcode";
         DataSet ds = SQLHelper.Query(str66);
         //this.HiddenField1.Value = row.Cells[0].Text;

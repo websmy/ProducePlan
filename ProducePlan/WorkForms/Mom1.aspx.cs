@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Helper;
 
-public partial class WorkForms_Mom : System.Web.UI.Page
+public partial class WorkForms_Mom1 : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -45,11 +45,12 @@ public partial class WorkForms_Mom : System.Web.UI.Page
 
     protected void Bind(bool isFirstPage)
     {
+
         string strXmlFile = HttpContext.Current.Server.MapPath("~/config/conn.config");
         string vDataBaseName = XMLHelper.GetXmlNodeByXpath(strXmlFile, "//conn_configuration1//DataBaseName").InnerText.Trim();
 
         string sql =
-            "SELECT  a.modid, SO_SOMain.cCusName,a.soseq, case when CHARINDEX(',',a.define25)>0 then substring(a.define25,1,CHARINDEX(',',a.define25)-1 ) when CHARINDEX(',',a.define25)<=0 then '' end as qian,case when CHARINDEX(',',a.define25)>0 then substring(a.define25,CHARINDEX(',',a.define25)+1,len(a.define25))when CHARINDEX(',',a.define25)<=0 then ''end as hou,a.SoDId,a.moid,a.SortSeq,Department.[cDepName],Department.[cDepCode],a.modid,a.MDeptCode,inventory.cinvdefine4,inventory.[cInvCode],inventory.cInvCCode,a.SoCode,a.ordercode,a.orderseq,'' as 是否缺料,"
+            "SELECT  pn.datetime, a.modid, SO_SOMain.cCusName,a.soseq, case when CHARINDEX(',',a.define25)>0 then substring(a.define25,1,CHARINDEX(',',a.define25)-1 ) when CHARINDEX(',',a.define25)<=0 then '' end as qian,case when CHARINDEX(',',a.define25)>0 then substring(a.define25,CHARINDEX(',',a.define25)+1,len(a.define25))when CHARINDEX(',',a.define25)<=0 then ''end as hou,a.SoDId,a.moid,a.SortSeq,Department.[cDepName],Department.[cDepCode],a.modid,a.MDeptCode,inventory.cinvdefine4,inventory.[cInvCode],inventory.cInvCCode,a.SoCode,a.ordercode,a.orderseq,'' as 是否缺料,"
             +
             " mom_order.mocode,a.InvCode,inventory.cinvname,a.Qty, a.QualifiedInQty, mom_morder.startdate,mom_morder.Duedate"
             + " FROM mom_orderdetail a LEFT JOIN mom_order ON a.moid = mom_order.moid"
@@ -58,6 +59,7 @@ public partial class WorkForms_Mom : System.Web.UI.Page
             + " LEFT JOIN [Department] ON a.MDeptCode = [Department].[cDepCode]"
             + " LEFT JOIN SO_SOMain ON a.ordercode = SO_SOMain.cSOCode  "
             + " LEFT JOIN SO_SODetails ON SO_SODetails.cSOCode = SO_SOMain.cSOCode  AND a.OrderSeq=SO_SODetails.iRowNo"
+            + " left join opendatasource ('SQLOLEDB','" + GetConnectionString.iGetConn1 + "')." + vDataBaseName + ".dbo.[日装配计划]  pn on  a.MoDId= pn.MoDId  "
 
             //+ " LEFT JOIN SO_SODetails ON a.socode = SO_SODetails.csocode and a.invcode=SO_SODetails.cinvcode"
 
@@ -66,7 +68,7 @@ public partial class WorkForms_Mom : System.Web.UI.Page
 
         //sql = "SELECT TOP " + pageSize + " * FROM aViewName WHERE (modid > (SELECT MAX(modid) FROM (SELECT TOP (" + pageSize * (curpage - 1) + ") modid FROM aViewName  ORDER BY modid) AS T)) ";                                                   
         sql += " and 1=1 ";
-        sql += " and not exists( select '1' from  opendatasource ('SQLOLEDB','" + GetConnectionString.iGetConn1 + "')." + vDataBaseName + ".dbo.[日装配计划]  pn where pn.modid = a.modid   ) ";
+        sql += " and exists( select '1' from  opendatasource ('SQLOLEDB','" + GetConnectionString.iGetConn1 + "')." + vDataBaseName + ".dbo.[日装配计划]  pn where pn.modid = a.modid   ) ";
 
         if (!"全部".Equals(DropDownList3.SelectedValue))
         {
@@ -333,32 +335,41 @@ public partial class WorkForms_Mom : System.Web.UI.Page
 
     private void BindFilter()
     {
-        string str = "";
-        bool found = false;
-        Dictionary<string, string> dic = XMLHelper.ReadConfig("~/config/quanxian.config", "web/user");
-        if (dic == null)
-            return;
-        foreach (KeyValuePair<string, string> kv in dic)
-        {
-            if (kv.Key.Equals(User.Identity.Name))
-            {
-                found = true;
-                str = kv.Value;
-                break;
-            }
-        }
+        //string str = "";
+        //bool found = false;
+        //Dictionary<string, string> dic = XMLHelper.ReadConfig("~/config/quanxian.config", "web/user");
+        //if (dic == null)
+        //    return;
+        //foreach (KeyValuePair<string, string> kv in dic)
+        //{
+        //    if (kv.Key.Equals(User.Identity.Name))
+        //    {
+        //        found = true;
+        //        str = kv.Value;
+        //        break;
+        //    }
+        //}
 
-        if (!found)
-        {
-            return;
-        }
+        //if (!found)
+        //{
+        //    return;
+        //}
 
+        //string sql =
+        //    "select Department.[cDepName] ,mom_orderdetail.modid,mom_orderdetail.MDeptCode,inventory.cinvdefine4,mom_orderdetail.SoCode,mom_order.mocode,mom_orderdetail.InvCode,inventory.cinvname,mom_orderdetail.Qty,mom_orderdetail.QualifiedInQty,mom_morder.startdate,mom_morder.Duedate " +
+        //    "from mom_orderdetail " +
+        //    "left join mom_order on mom_orderdetail.moid=mom_order.moid " +
+        //    "left join mom_morder on mom_orderdetail.modid=mom_morder.modid " +
+        //    "left join inventory on mom_orderdetail.InvCode=inventory.cInvCode " +
+        //    "left join [Department] on mom_orderdetail.MDeptCode=[Department].[cDepCode] " +
+        //    "where mom_orderdetail.status<> 4 and mom_orderdetail.Qty <> mom_orderdetail.QualifiedInQty and mom_orderdetail.Status = 3 and Department.[cDepName] in (" +
+        //    str + ")";
 
         string strXmlFile = HttpContext.Current.Server.MapPath("~/config/conn.config");
         string vDataBaseName = XMLHelper.GetXmlNodeByXpath(strXmlFile, "//conn_configuration1//DataBaseName").InnerText.Trim();
 
         string sql =
-            "SELECT  a.modid, SO_SOMain.cCusName,a.soseq, case when CHARINDEX(',',a.define25)>0 then substring(a.define25,1,CHARINDEX(',',a.define25)-1 ) when CHARINDEX(',',a.define25)<=0 then '' end as qian,case when CHARINDEX(',',a.define25)>0 then substring(a.define25,CHARINDEX(',',a.define25)+1,len(a.define25))when CHARINDEX(',',a.define25)<=0 then ''end as hou,a.SoDId,a.moid,a.SortSeq,Department.[cDepName],Department.[cDepCode],a.modid,a.MDeptCode,inventory.cinvdefine4,inventory.[cInvCode],inventory.cInvCCode,a.SoCode,a.ordercode,a.orderseq,'' as 是否缺料,"
+            "SELECT  pn.datetime, a.modid, SO_SOMain.cCusName,a.soseq, case when CHARINDEX(',',a.define25)>0 then substring(a.define25,1,CHARINDEX(',',a.define25)-1 ) when CHARINDEX(',',a.define25)<=0 then '' end as qian,case when CHARINDEX(',',a.define25)>0 then substring(a.define25,CHARINDEX(',',a.define25)+1,len(a.define25))when CHARINDEX(',',a.define25)<=0 then ''end as hou,a.SoDId,a.moid,a.SortSeq,Department.[cDepName],Department.[cDepCode],a.modid,a.MDeptCode,inventory.cinvdefine4,inventory.[cInvCode],inventory.cInvCCode,a.SoCode,a.ordercode,a.orderseq,'' as 是否缺料,"
             +
             " mom_order.mocode,a.InvCode,inventory.cinvname,a.Qty, a.QualifiedInQty, mom_morder.startdate,mom_morder.Duedate"
             + " FROM mom_orderdetail a LEFT JOIN mom_order ON a.moid = mom_order.moid"
@@ -367,6 +378,7 @@ public partial class WorkForms_Mom : System.Web.UI.Page
             + " LEFT JOIN [Department] ON a.MDeptCode = [Department].[cDepCode]"
             + " LEFT JOIN SO_SOMain ON a.ordercode = SO_SOMain.cSOCode  "
             + " LEFT JOIN SO_SODetails ON SO_SODetails.cSOCode = SO_SOMain.cSOCode  AND a.OrderSeq=SO_SODetails.iRowNo"
+            + " left join opendatasource ('SQLOLEDB','" + GetConnectionString.iGetConn1 + "')." + vDataBaseName + ".dbo.[日装配计划]  pn on  a.MoDId= pn.MoDId  "
 
             //+ " LEFT JOIN SO_SODetails ON a.socode = SO_SODetails.csocode and a.invcode=SO_SODetails.cinvcode"
 
@@ -375,32 +387,7 @@ public partial class WorkForms_Mom : System.Web.UI.Page
 
         //sql = "SELECT TOP " + pageSize + " * FROM aViewName WHERE (modid > (SELECT MAX(modid) FROM (SELECT TOP (" + pageSize * (curpage - 1) + ") modid FROM aViewName  ORDER BY modid) AS T)) ";                                                   
         sql += " and 1=1 ";
-        sql += " and not exists( select '1' from  opendatasource ('SQLOLEDB','" + GetConnectionString.iGetConn1 + "')." + vDataBaseName + ".dbo.[日装配计划]  pn where pn.modid = a.modid   ) ";
-
-
-
-        ////string sql =
-        ////    "select Department.[cDepName] ,mom_orderdetail.modid,mom_orderdetail.MDeptCode,inventory.cinvdefine4,mom_orderdetail.SoCode,mom_order.mocode,mom_orderdetail.InvCode,inventory.cinvname,mom_orderdetail.Qty,mom_orderdetail.QualifiedInQty,mom_morder.startdate,mom_morder.Duedate " +
-        ////    "from mom_orderdetail " +
-        ////    "left join mom_order on mom_orderdetail.moid=mom_order.moid " +
-        ////    "left join mom_morder on mom_orderdetail.modid=mom_morder.modid " +
-        ////    "left join inventory on mom_orderdetail.InvCode=inventory.cInvCode " +
-        ////    "left join [Department] on mom_orderdetail.MDeptCode=[Department].[cDepCode] " +
-        ////    "where mom_orderdetail.status<> 4 and mom_orderdetail.Qty <> mom_orderdetail.QualifiedInQty and mom_orderdetail.Status = 3 and Department.[cDepName] in (" +
-        ////    str + ")";
-
-        //string sql =
-        //"SELECT   SO_SOMain.cCusName,a.soseq, case when CHARINDEX(',',a.define25)>0 then substring(a.define25,1,CHARINDEX(',',a.define25)-1 ) when CHARINDEX(',',a.define25)<=0 then '' end as qian,case when CHARINDEX(',',a.define25)>0 then substring(a.define25,CHARINDEX(',',a.define25)+1,len(a.define25))when CHARINDEX(',',a.define25)<=0 then ''end as hou,a.SoDId,a.moid,a.SortSeq,Department.[cDepName],Department.[cDepCode],a.modid,a.MDeptCode,inventory.cinvdefine4,inventory.[cInvCode],inventory.cInvCCode,a.SoCode,'' as 是否缺料,"
-        //+
-        //" mom_order.mocode,a.InvCode,inventory.cinvname,a.Qty, a.QualifiedInQty, mom_morder.startdate,mom_morder.Duedate"
-        //+ " FROM mom_orderdetail a LEFT JOIN mom_order ON a.moid = mom_order.moid"
-        //+ " LEFT JOIN mom_morder ON a.modid = mom_morder.modid"
-        //+ " LEFT JOIN inventory ON a.InvCode = inventory.cInvCode"
-        //+ " LEFT JOIN [Department] ON a.MDeptCode = [Department].[cDepCode]"
-        //+ " LEFT join SO_SODetails on a.sodid=SO_SODetails.iSOsID "
-        //+ " LEFT join SO_SOMain on SO_SODetails.cSOCode=SO_SOMain.cSOCode AND a.OrderSeq=SO_SODetails.iRowNo "
-        //+ " WHERE a.status <> 4  and a.Qty <> a.QualifiedInQty and a.Status = 3 ";
-
+        sql += " and exists( select '1' from  opendatasource ('SQLOLEDB','" + GetConnectionString.iGetConn1 + "')." + vDataBaseName + ".dbo.[日装配计划]  pn where pn.modid = a.modid   ) ";
 
         //string sql = "select * from aViewName where 1=1 ";
         DataSet ds = SQLHelper.Query(sql);
@@ -1111,7 +1098,7 @@ public partial class WorkForms_Mom : System.Web.UI.Page
         string vDataBaseName = XMLHelper.GetXmlNodeByXpath(strXmlFile, "//conn_configuration1//DataBaseName").InnerText.Trim();
 
         string sql =
-            "SELECT  a.modid, SO_SOMain.cCusName,a.soseq, case when CHARINDEX(',',a.define25)>0 then substring(a.define25,1,CHARINDEX(',',a.define25)-1 ) when CHARINDEX(',',a.define25)<=0 then '' end as qian,case when CHARINDEX(',',a.define25)>0 then substring(a.define25,CHARINDEX(',',a.define25)+1,len(a.define25))when CHARINDEX(',',a.define25)<=0 then ''end as hou,a.SoDId,a.moid,a.SortSeq,Department.[cDepName],Department.[cDepCode],a.modid,a.MDeptCode,inventory.cinvdefine4,inventory.[cInvCode],inventory.cInvCCode,a.SoCode,a.ordercode,a.orderseq,'' as 是否缺料,"
+            "SELECT  pn.datetime, a.modid, SO_SOMain.cCusName,a.soseq, case when CHARINDEX(',',a.define25)>0 then substring(a.define25,1,CHARINDEX(',',a.define25)-1 ) when CHARINDEX(',',a.define25)<=0 then '' end as qian,case when CHARINDEX(',',a.define25)>0 then substring(a.define25,CHARINDEX(',',a.define25)+1,len(a.define25))when CHARINDEX(',',a.define25)<=0 then ''end as hou,a.SoDId,a.moid,a.SortSeq,Department.[cDepName],Department.[cDepCode],a.modid,a.MDeptCode,inventory.cinvdefine4,inventory.[cInvCode],inventory.cInvCCode,a.SoCode,a.ordercode,a.orderseq,'' as 是否缺料,"
             +
             " mom_order.mocode,a.InvCode,inventory.cinvname,a.Qty, a.QualifiedInQty, mom_morder.startdate,mom_morder.Duedate"
             + " FROM mom_orderdetail a LEFT JOIN mom_order ON a.moid = mom_order.moid"
@@ -1120,6 +1107,7 @@ public partial class WorkForms_Mom : System.Web.UI.Page
             + " LEFT JOIN [Department] ON a.MDeptCode = [Department].[cDepCode]"
             + " LEFT JOIN SO_SOMain ON a.ordercode = SO_SOMain.cSOCode  "
             + " LEFT JOIN SO_SODetails ON SO_SODetails.cSOCode = SO_SOMain.cSOCode  AND a.OrderSeq=SO_SODetails.iRowNo"
+            + " left join opendatasource ('SQLOLEDB','" + GetConnectionString.iGetConn1 + "')." + vDataBaseName + ".dbo.[日装配计划]  pn on  a.MoDId= pn.MoDId  "
 
             //+ " LEFT JOIN SO_SODetails ON a.socode = SO_SODetails.csocode and a.invcode=SO_SODetails.cinvcode"
 
@@ -1128,7 +1116,7 @@ public partial class WorkForms_Mom : System.Web.UI.Page
 
         //sql = "SELECT TOP " + pageSize + " * FROM aViewName WHERE (modid > (SELECT MAX(modid) FROM (SELECT TOP (" + pageSize * (curpage - 1) + ") modid FROM aViewName  ORDER BY modid) AS T)) ";                                                   
         sql += " and 1=1 ";
-        sql += " and not exists( select '1' from  opendatasource ('SQLOLEDB','" + GetConnectionString.iGetConn1 + "')." + vDataBaseName + ".dbo.[日装配计划]  pn where pn.modid = a.modid   ) ";
+        sql += " and exists( select '1' from  opendatasource ('SQLOLEDB','" + GetConnectionString.iGetConn1 + "')." + vDataBaseName + ".dbo.[日装配计划]  pn where pn.modid = a.modid   ) ";
 
 
         if (!"全部".Equals(DropDownList3.SelectedValue))
@@ -1380,7 +1368,7 @@ public partial class WorkForms_Mom : System.Web.UI.Page
     protected void Button112_Click(object sender, EventArgs e)
     {
         //string sql = "";
-        Session["strConnected"] = "";
+        Session["needprint"] = "";
         bool ischecked = false;
         List<String> lst_cSOCode = new List<String>();
         for (int i = 0; i < GridView1.Rows.Count; i++)
@@ -1402,66 +1390,13 @@ public partial class WorkForms_Mom : System.Web.UI.Page
             return;
         }
 
+        string strConnected = string.Join("','", lst_cSOCode.ToArray());
+        Session["needprint"] = strConnected;
 
-        string sql = "";
-        List<String> SQLStringList = new List<string>();
-        foreach (string VARIABLE in lst_cSOCode)
-        {
-            sql = " insert into 日装配计划([MoDId] ) values('" + VARIABLE + "')";
-            SQLStringList.Add(sql);
-            //tmp += VARIABLE + ",";
-        }
-        //if (tmp.EndsWith(","))
-        //{
-        //    tmp = tmp.Substring(0, tmp.Length - 1);
-        //}
-
-        if (SQLHelper1.ExecuteSqlTran(SQLStringList) == 0)
-        {
-            ScriptManager.RegisterStartupScript(UpdatePanel1, this.GetType(), "alert", "alert('插入数据失败!请联系管理员！')", true);
-            return;
-        }
-        else
-        {
-            Response.Redirect("./Mom1.aspx");
-        }
-
-        //string strConnected = string.Join("','", lst_cSOCode.ToArray());
-        //Session["strConnected"] = strConnected;
-
-        //ScriptManager.RegisterStartupScript(UpdatePanel1, this.GetType(), "alert", "openwin('WorkFormsNew.aspx','WorkFormsNew','" + "" + "','650','600','" +
-        //                      "" + "','" + "" + "','" +
-        //                      "" + "','" +
-        //                      "" + "','" + "" + "','" + "" + "' )", true);
-        //       string strSup = @"
-        //SELECT COUNT(*)
-        // FROM DAT_HOSP_PURCHASE_GOODS_COM  C 
-        //where    C.FLAG<>'P8'  AND C.HOSP_GUID =:HOSP_GUID
-        //AND C.hosp_gd_guid IN ('" + lstGUID + "')  AND exists(SELECT 'X'  FROM  DOC_HOSP_GOODS G  WHERE G.GDNAME = C.GDNAME  AND    G.FLAG = 'Y'   AND HOSP_GUID =:HOSP_GUID   )  ";
-
-        ////string tmp = "";
-        //List<String> SQLStringList = new List<string>();
-        //foreach (string VARIABLE in lst_modid)
-        //{
-        //    sql = " insert into xialiao_flag([MoDId],flag   ) values('" + VARIABLE + "',3)";
-        //    SQLStringList.Add(sql);
-        //    //tmp += VARIABLE + ",";
-        //}
-        ////if (tmp.EndsWith(","))
-        ////{
-        ////    tmp = tmp.Substring(0, tmp.Length - 1);
-        ////}
-
-        //if (SQLHelper1.ExecuteSqlTran(SQLStringList) == 0)
-        //{
-        //    ScriptManager.RegisterStartupScript(UpdatePanel1, this.GetType(), "alert", "alert('更新数据失败!请联系管理员！')", true);
-        //    return;
-        //}
-        //else
-        //{
-        //    //Page.ClientScript.RegisterStartupScript(typeof(Page), "", "<script>openwin('cjxl_Print.aspx','cjxl_Print','" + tmp + "');__doPostBack('ctl00$MainContent$btnFilter',''); </script>");
-        //    //btnFilter.
-        //}
+        ScriptManager.RegisterStartupScript(UpdatePanel1, this.GetType(), "alert", "openwin('Mom1Print.aspx','Mom1Print','" + "" + "','650','600','" +
+                              "" + "','" + "" + "','" +
+                              "" + "','" +
+                              "" + "','" + "" + "','" + "" + "' )", true);
     }
 
 

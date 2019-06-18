@@ -40,6 +40,7 @@
                         <asp:MenuItem NavigateUrl="WorkForms/SO.aspx" Text="销售订单排产" Value="销售订单排产" />
                         <asp:MenuItem NavigateUrl="~/WorkForms/Mom.aspx" Text="生产车间排程" Value="生产车间排程">
                         </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/WorkForms/Mom1.aspx" Text="日装配计划列表" Value="日装配计划列表"></asp:MenuItem>
                         <asp:MenuItem NavigateUrl="~/WorkForms/工时录入.aspx" Text="车间计工" Value="车间计工"></asp:MenuItem>
                         <asp:MenuItem Text="产能分析" Value="产能分析" NavigateUrl="~/WorkForms/cnfx.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="完工日报" Value="完工日报" NavigateUrl="~/WorkForms/wgrb.aspx"></asp:MenuItem>
